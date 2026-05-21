@@ -9,7 +9,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "CiviqueGuidance | Accompagnement Administratif d'Excellence",
+  title: "DémarchesCivique | Accompagnement Administratif d'Excellence",
   description:
     "Expertise juridique et administrative dédiée à la réussite de votre parcours républicain en France.",
 };

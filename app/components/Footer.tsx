@@ -24,13 +24,13 @@ export default function Footer() {
           <div className="flex items-center gap-3 mb-6">
             <Image
               src="/logo.png"
-              alt="CiviqueGuidance"
+              alt="DémarchesCivique"
               width={32}
               height={32}
               className="h-8 w-8 object-contain"
             />
             <span className="text-[20px] font-bold text-french-blue">
-              CiviqueGuidance
+              DémarchesCivique
             </span>
           </div>
           <p className="text-[16px] text-on-surface-variant mb-6 leading-relaxed">
@@ -85,7 +85,7 @@ export default function Footer() {
 
       <div className="border-t border-outline-variant/30 py-8 px-page max-w-content mx-auto">
         <p className="text-[12px] text-on-surface-variant text-center opacity-70">
-          © {new Date().getFullYear()} CiviqueGuidance. Service public de
+          © {new Date().getFullYear()} DémarchesCivique. Service public de
           l&apos;accompagnement administratif.
         </p>
       </div>

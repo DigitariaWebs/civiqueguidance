@@ -28,18 +28,18 @@ export default function Navbar() {
           : "bg-surface-container-lowest"
       }`}
     >
-      <div className="flex justify-between items-center px-page h-20 max-w-content mx-auto">
+      <div className="flex justify-between items-center px-page h-24 max-w-content mx-auto">
         <Link href="/" className="flex items-center gap-4">
           <Image
             src="/logo.png"
-            alt="CiviqueGuidance Logo"
-            width={48}
-            height={48}
-            className="h-12 w-12 object-contain"
+            alt="DémarchesCivique Logo"
+            width={80}
+            height={80}
+            className="h-16 w-16 sm:h-20 sm:w-20 object-contain"
             priority
           />
           <span className="text-[24px] leading-8 font-bold text-french-blue tracking-tight">
-            CiviqueGuidance
+            DémarchesCivique
           </span>
         </Link>
 

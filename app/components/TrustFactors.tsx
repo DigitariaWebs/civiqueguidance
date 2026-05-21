@@ -27,7 +27,7 @@ export default function TrustFactors() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
           <div>
             <h2 className="text-[26px] leading-8 sm:text-[32px] sm:leading-10 font-bold tracking-tight mb-6 sm:mb-8 text-ink-black">
-              Pourquoi choisir CiviqueGuidance ?
+              Pourquoi choisir DémarchesCivique ?
             </h2>
             <div className="space-y-8 sm:space-y-10">
               {values.map((v) => (
