@@ -33,11 +33,11 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-24 bg-surface-grey/60">
+    <section id="services" className="py-16 sm:py-20 lg:py-24 bg-surface-grey/60">
       <div className="max-w-content mx-auto px-page">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-6">
           <div className="max-w-2xl">
-            <h2 className="text-[32px] leading-10 font-bold tracking-tight text-ink-black mb-4">
+            <h2 className="text-[26px] leading-8 sm:text-[32px] sm:leading-10 font-bold tracking-tight text-ink-black mb-4">
               Domaines d&apos;Intervention
             </h2>
             <p className="text-[16px] text-on-surface-variant">
@@ -45,7 +45,7 @@ export default function Services() {
               vie en France.
             </p>
           </div>
-          <div className="h-px flex-grow mx-8 bg-outline-variant hidden md:block" />
+          <div className="h-px grow mx-8 bg-outline-variant hidden md:block" />
           <span className="text-[14px] font-bold text-french-blue uppercase tracking-wider">
             6 Services clés
           </span>

@@ -19,8 +19,8 @@ const columns = [
 export default function Footer() {
   return (
     <footer className="bg-surface-container-low border-t border-outline-variant">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 px-page py-16 max-w-content mx-auto">
-        <div className="md:col-span-4 mb-10 md:mb-0">
+      <div className="grid grid-cols-2 md:grid-cols-12 gap-8 sm:gap-6 px-page py-12 sm:py-16 max-w-content mx-auto">
+        <div className="col-span-2 md:col-span-4 mb-4 md:mb-0">
           <div className="flex items-center gap-3 mb-6">
             <Image
               src="/logo.png"

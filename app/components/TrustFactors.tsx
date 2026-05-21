@@ -20,16 +20,16 @@ export default function TrustFactors() {
   return (
     <section
       id="expertise"
-      className="py-24 overflow-hidden relative bg-surface-grey/60"
+      className="py-16 sm:py-20 lg:py-24 overflow-hidden relative bg-surface-grey/60"
     >
       <div className="absolute top-0 right-0 w-64 h-64 bg-marianne-red opacity-10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2" />
       <div className="max-w-content mx-auto px-page relative">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-stretch">
           <div>
-            <h2 className="text-[32px] leading-10 font-bold tracking-tight mb-8 text-ink-black">
+            <h2 className="text-[26px] leading-8 sm:text-[32px] sm:leading-10 font-bold tracking-tight mb-6 sm:mb-8 text-ink-black">
               Pourquoi choisir CiviqueGuidance ?
             </h2>
-            <div className="space-y-10">
+            <div className="space-y-8 sm:space-y-10">
               {values.map((v) => (
                 <div key={v.title} className="flex gap-6">
                   <div className="shrink-0 w-12 h-12 bg-french-blue/10 rounded-lg flex items-center justify-center">
@@ -59,7 +59,7 @@ export default function TrustFactors() {
 
 function ConsultForm() {
   return (
-    <div className="relative p-8 border rounded-xl backdrop-blur-sm bg-white shadow-xl border-outline-variant">
+    <div className="relative p-6 sm:p-8 border rounded-xl backdrop-blur-sm bg-white shadow-xl border-outline-variant">
       <div className="mb-8">
         <h3 className="text-[24px] leading-8 font-semibold mb-6 text-ink-black">
           Consultation Express

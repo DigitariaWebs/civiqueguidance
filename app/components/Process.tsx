@@ -23,10 +23,10 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="py-24 bg-surface-container-lowest/50">
+    <section className="py-16 sm:py-20 lg:py-24 bg-surface-container-lowest/50">
       <div className="max-w-content mx-auto px-page">
-        <div className="text-center mb-20">
-          <h2 className="text-[32px] leading-10 font-bold tracking-tight text-ink-black mb-4">
+        <div className="text-center mb-12 sm:mb-20">
+          <h2 className="text-[26px] leading-8 sm:text-[32px] sm:leading-10 font-bold tracking-tight text-ink-black mb-4">
             Notre Processus d&apos;Accompagnement
           </h2>
           <p className="text-[16px] text-on-surface-variant max-w-2xl mx-auto">
