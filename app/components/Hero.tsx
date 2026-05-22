@@ -25,10 +25,12 @@ export default function Hero() {
               votre parcours républicain. Nous simplifions la complexité pour
               sécuriser votre avenir.
             </p>
+
             <div className="flex flex-col sm:flex-row gap-4">
               <button className="bg-french-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-[15px] sm:text-[16px] font-bold hover:opacity-95 transition-all shadow-sm">
                 Démarrer ma procédure
               </button>
+
               <button className="border-2 border-french-blue text-french-blue px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-[15px] sm:text-[16px] font-bold hover:bg-french-blue hover:text-white transition-all">
                 Découvrir nos services
               </button>
@@ -38,7 +40,7 @@ export default function Hero() {
           <div className="lg:col-span-5 relative mx-auto w-full max-w-md lg:max-w-none">
             <div className="relative w-full aspect-square">
               <Image
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuuud3TrtxSA6_So2qjeQOzXCzibX9Ys2vcf_a0ZQFrguFJCUEhIGB4rLr2M7NAze6qpJRH9TvfRron8U87cRst9GW6TPg54auLQrhfO_fAdLB8GZ9FTwIXSQlTIitO5v6bNCacwgCnxCHbHEvOKE1RWAM0TsjTfpX3juotQtYGokjlGryPKs3Sq5ypN9oFuLvhhE9H1jFxM5Mb2cHFfiR5wraCPNT0-ioVfNeDq01TURetv0exjisCsteuSYGjF0wq5cOKzruc7lu"
+                src="/hero.png"
                 alt="Ambiance de bureau professionnel"
                 fill
                 className="object-cover rounded-2xl shadow-2xl border-8 border-white/60"
@@ -46,6 +48,7 @@ export default function Hero() {
                 quality={95}
                 priority
               />
+
               <div className="absolute -bottom-4 -left-4 w-16 h-16 border-l-8 border-b-8 border-french-blue" />
               <div className="absolute -top-4 -right-4 w-16 h-16 border-r-8 border-t-8 border-marianne-red" />
             </div>
