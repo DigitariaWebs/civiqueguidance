@@ -44,6 +44,30 @@
   --text-label-sm: 12px;
   --text-label-sm--line-height: 16px;
   --text-label-sm--font-weight: 500;
+
+  /* Aurora animation */
+  --animate-aurora: aurora 60s linear infinite;
+}
+
+@keyframes aurora {
+  from {
+    background-position: 50% 50%, 50% 50%;
+  }
+  to {
+    background-position: 350% 50%, 350% 50%;
+  }
+}
+
+/* CSS vars needed by AuroraBackground component */
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --transparent: transparent;
+  --blue-500: #3b82f6;
+  --blue-400: #60a5fa;
+  --blue-300: #93c5fd;
+  --indigo-300: #a5b4fc;
+  --violet-200: #ddd6fe;
 }
 
 @layer base {
@@ -54,16 +78,9 @@
   body {
     font-family: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
     color: var(--color-on-surface);
-    background-color: var(--color-background);
+    /* Transparent pour laisser apparaître <SiteBackground /> qui est en -z-10 */
+    background-color: transparent;
     overflow-x: hidden;
-    /* Layered pattern: SVG plus-signs in French blue + subtle red dots + faint grid */
-    background-image:
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><g fill='none' stroke='%23000091' stroke-opacity='0.13' stroke-width='1.2' stroke-linecap='round'><path d='M24 18v12M18 24h12'/></g><circle cx='0' cy='0' r='1.2' fill='%23e1000f' fill-opacity='0.18'/><circle cx='48' cy='0' r='1.2' fill='%23e1000f' fill-opacity='0.18'/><circle cx='0' cy='48' r='1.2' fill='%23e1000f' fill-opacity='0.18'/><circle cx='48' cy='48' r='1.2' fill='%23e1000f' fill-opacity='0.18'/></svg>"),
-      linear-gradient(rgba(0, 0, 145, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 0, 145, 0.035) 1px, transparent 1px);
-    background-size: 48px 48px, 48px 48px, 48px 48px;
-    background-position: 0 0, 0 0, 0 0;
-    background-attachment: fixed;
   }
 }
 

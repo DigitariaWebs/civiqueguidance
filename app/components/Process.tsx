@@ -1,124 +1,142 @@
+import React from "react";
+
 const steps = [
   {
     n: "01",
     icon: "call",
     title: "Contact",
-    desc: "Prise de contact initiale et analyse sommaire de votre situation administrative.",
+    desc: "Prise de contact initiale et analyse sommaire de votre situation.",
   },
   {
     n: "02",
     icon: "description",
     title: "Proposition",
-    desc: "Établissement d'un devis transparent et d'une stratégie juridique personnalisée.",
+    desc: "Établissement d'un devis transparent et d'une stratégie personnalisée.",
   },
   {
     n: "03",
     icon: "handshake",
     title: "Accompagnement",
-    desc: "Montage du dossier, relecture critique et suivi constant avec les autorités.",
+    desc: "Montage du dossier, relecture critique et suivi avec les autorités.",
   },
   {
     n: "04",
     icon: "verified",
     title: "Finalisation",
-    desc: "Obtention de votre titre ou validation de votre démarche administrative.",
+    desc: "Obtention de votre titre ou validation de votre démarche.",
   },
 ];
 
+// Classes utilitaires pour simplifier le JSX
+const colors = {
+  blue: {
+    text: "text-french-blue",
+    border: "border-french-blue/30",
+    bg: "bg-french-blue/5",
+    stop: "#000091", // French blue exact
+  },
+  red: {
+    text: "text-marianne-red",
+    border: "border-marianne-red/30",
+    bg: "bg-marianne-red/5",
+    stop: "#E1000F", // Marianne red exact
+  },
+};
+
 export default function Process() {
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-surface-container-lowest/50">
-      <div className="max-w-content mx-auto px-page">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-[26px] leading-8 sm:text-[32px] sm:leading-10 font-bold tracking-tight text-ink-black mb-4">
+    <section className="py-16 sm:py-24 bg-surface-container-lowest relative overflow-hidden">
+      {/* Subtle Background Pattern (Optional but recommended) */}
+      <div className="absolute inset-0 opacity-[0.03] text-ink-black pointer-events-none">
+        <svg width="100%" height="100%"><dd><pattern id="uav" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M13 1a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" fill="currentColor"></path></pattern></dd><rect width="100%" height="100%" fill="url(#uav)"></rect></svg>
+      </div>
+
+      <div className="max-w-content mx-auto px-page relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16 sm:mb-20">
+          <div className="inline-flex items-center rounded-full px-4 py-1 text-sm font-medium bg-french-blue/10 text-french-blue mb-4 border border-french-blue/20">
+            <span className="relative flex h-2 w-2 mr-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-french-blue opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-french-blue"></span>
+            </span>
+            Méthodologie
+          </div>
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-ink-black mb-6">
             Notre Processus d&apos;Accompagnement
           </h2>
-          <p className="text-[16px] text-on-surface-variant max-w-2xl mx-auto">
-            Une méthode rigoureuse en quatre étapes pour garantir la clarté et
-            l&apos;efficacité de vos démarches.
+          <p className="text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+            Une méthode rigoureuse en quatre étapes pour garantir la clarté,
+            la <span className="font-semibold text-ink-black">sérénité</span> et l&apos;efficacité de vos démarches.
           </p>
         </div>
 
         <div className="relative">
-          {/* Horizontal connector line (visible from md and up) */}
-          <div className="hidden md:block absolute top-[44px] lg:top-12 left-0 right-0 mx-auto h-0.5 bg-linear-to-r from-french-blue via-french-blue/60 to-marianne-red/70" />
+          {/* Connector Line - Modernized: dashed and subtle gradient */}
+          <div className="hidden md:block absolute top-[60px] left-[10%] right-[10%] h-px pointer-events-none">
+            <div className="w-full h-full border-t-2 border-dashed border-linear-to-r from-french-blue/20 via-french-blue/40 to-marianne-red/30" />
+          </div>
 
-          <ol className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 relative">
+          <ol className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-6 relative">
             {steps.map((s, i) => {
               const isLast = i === steps.length - 1;
+              const theme = isLast ? colors.red : colors.blue;
+              
+              // Dynamic gradient for the border border conic
+              const borderColor = isLast 
+                ? `conic-gradient(from 90deg at 50% 50%, #E1000F 0%, rgba(225,0,15,0.1) 80%, #E1000F 100%)`
+                : `conic-gradient(from 90deg at 50% 50%, #000091 0%, rgba(0,0,145,0.1) 80%, #000091 100%)`;
+
               return (
                 <li
                   key={s.n}
-                  className="flex flex-col items-center text-center"
+                  className="flex flex-col items-center text-center group" // 'group' for hover effects
                 >
-                  {/* Numbered marker — layered medal style */}
-                  <div className="relative z-10">
-                    {/* Outer halo */}
-                    <div
-                      className={`absolute inset-0 rounded-full blur-xl scale-110 ${
-                        isLast ? "bg-marianne-red/30" : "bg-french-blue/30"
-                      }`}
-                    />
-                    {/* Outer ring */}
-                    <div
-                      className={`relative w-[88px] h-[88px] lg:w-24 lg:h-24 rounded-full p-[3px] ${
-                        isLast
-                          ? "bg-linear-to-br from-marianne-red via-[#ff6a4d] to-[#7a1020]"
-                          : "bg-linear-to-br from-french-blue via-[#5b8def] to-[#000053]"
-                      } shadow-xl`}
+                  {/* Container du Marqueur avec effet Hover */}
+                  <div className="relative mb-8 transform transition-transform duration-300 group-hover:-translate-y-2">
+                    
+                    {/* Soft Glow effect on hover */}
+                    <div className={`absolute inset-0 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150 ${isLast ? 'bg-marianne-red/10' : 'bg-french-blue/10'}`} />
+
+                    {/* Anneau extérieur avec gradient conique moderne */}
+                    <div 
+                      className="relative w-28 h-28 lg:w-32 lg:h-32 rounded-full p-[2px] shadow-sm transition-shadow duration-300 group-hover:shadow-xl group-hover:shadow-french-blue/10 isLast:group-hover:shadow-marianne-red/10"
+                      style={{ background: borderColor }}
                     >
-                      {/* White separator */}
-                      <div className="w-full h-full rounded-full bg-white p-[3px]">
-                        {/* Inner gradient core */}
-                        <div
-                          className={`w-full h-full rounded-full flex items-center justify-center relative overflow-hidden ${
-                            isLast
-                              ? "bg-linear-to-br from-marianne-red to-[#7a1020]"
-                              : "bg-linear-to-br from-french-blue to-[#000053]"
-                          }`}
-                        >
-                          {/* Subtle dot pattern inside */}
-                          <div
-                            className="absolute inset-0 opacity-25"
-                            style={{
-                              backgroundImage:
-                                "radial-gradient(rgba(255,255,255,0.7) 1px, transparent 1px)",
-                              backgroundSize: "8px 8px",
-                            }}
-                          />
-                          {/* Glossy highlight */}
-                          <div className="absolute inset-x-2 top-1.5 h-1/3 rounded-full bg-white/15 blur-md" />
-                          <span className="relative text-white font-bold text-[22px] lg:text-[26px] tracking-tight drop-shadow">
-                            {s.n}
-                          </span>
+                      {/* Intérieur : Effet Glassmorphism subtil */}
+                      <div className="w-full h-full rounded-full bg-white/90 backdrop-blur-sm flex flex-col items-center justify-center relative overflow-hidden border border-white">
+                        
+                        {/* Numéro - Stylisé, léger */}
+                        <span className={`font-extrabold text-5xl tracking-tighter leading-none opacity-15 ${theme.text}`}>
+                          {s.n}
+                        </span>
+                        
+                        {/* Icône - Centrée et colorée */}
+                        <div className={`absolute inset-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                            <div className={`w-12 h-12 rounded-full ${theme.bg} flex items-center justify-center border ${theme.border}`}>
+                                <span
+                                    className={`material-symbols-outlined ${theme.text}`}
+                                    style={{ fontSize: "24px", fontVariationSettings: "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" }}
+                                >
+                                    {s.icon}
+                                </span>
+                            </div>
                         </div>
+
                       </div>
-                    </div>
-                    {/* Icon badge */}
-                    <div
-                      className={`absolute -bottom-1 -right-1 w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center border-2 ${
-                        isLast ? "border-marianne-red" : "border-french-blue"
-                      }`}
-                    >
-                      <span
-                        className={`material-symbols-outlined ${
-                          isLast ? "text-marianne-red" : "text-french-blue"
-                        }`}
-                        style={{ fontSize: "18px" }}
-                      >
-                        {s.icon}
-                      </span>
                     </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="mt-8 max-w-xs px-2">
-                    <h4 className="text-[18px] sm:text-[20px] leading-7 font-semibold text-ink-black mb-2">
+                  {/* Contenu Texte */}
+                  <div className="relative bg-white md:bg-transparent p-6 md:p-0 rounded-2xl shadow-lg shadow-ink-black/5 md:shadow-none border border-ink-black/5 md:border-none w-full max-w-sm md:max-w-none">
+                    <h4 className="text-xl sm:text-2xl font-bold text-ink-black mb-3 tracking-tight">
                       {s.title}
                     </h4>
-                    <p className="text-[14px] sm:text-[15px] leading-6 text-on-surface-variant">
+                    <p className="text-base leading-relaxed text-on-surface-variant group-hover:text-ink-black transition-colors">
                       {s.desc}
                     </p>
+                    
+                    {/* Petite flèche décorative pour mobile */}
+                    <div className={`md:hidden absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 bg-white border-l border-t border-ink-black/5`}/>
                   </div>
                 </li>
               );

@@ -28,7 +28,7 @@ export default function Navbar() {
           : "bg-surface-container-lowest"
       }`}
     >
-      <div className="flex justify-between items-center px-page h-24 max-w-content mx-auto">
+      <div className="flex justify-between items-center h-24 w-full pl-4 pr-4 md:pl-6 md:pr-16">
         <Link href="/" className="flex items-center gap-4">
           <Image
             src="/logo.png"
