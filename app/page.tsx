@@ -4,7 +4,7 @@ import Services from "./components/Services";
 import Process from "./components/Process";
 import TrustFactors from "./components/TrustFactors";
 import CTA from "./components/CTA";
-import MapSection from "./components/MapSection";
+import CoverageSection from "./components/CoverageSection";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
         <Process />
         <TrustFactors />
         <CTA />
-        <MapSection />
+        <CoverageSection />
       </main>
       <Footer />
     </>

@@ -1,0 +1,211 @@
+import Link from "next/link";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
+import BrushUnderline from "@/app/components/BrushUnderline";
+
+export const metadata = {
+  title: "Nos Services | DémarchesCivique",
+  description:
+    "L'ensemble de nos prestations d'accompagnement administratif. Nous vous aidons à constituer des dossiers solides et conformes.",
+};
+
+type ServiceListItem = {
+  slug: string | null;
+  icon: string;
+  title: string;
+  desc: string;
+  bgImage: string;
+};
+
+const allServices: ServiceListItem[] = [
+  {
+    slug: "demandeurs-asile",
+    icon: "gavel",
+    title: "Demandeurs d'asile",
+    desc: "Accompagnement pour votre demande d'asile en France. Aide à la constitution du dossier OFPRA, préparation à l'entretien, et suivi de votre procédure.",
+    bgImage:
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    slug: "etudiants",
+    icon: "school",
+    title: "Étudiants (France & Canada)",
+    desc: "Accompagnement complet pour vos études en France ou au Canada. Inscription, visa étudiant, titre de séjour, et démarches administratives.",
+    bgImage:
+      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    slug: "titre-de-sejour",
+    icon: "badge",
+    title: "Titre de séjour",
+    desc: "Aide pour votre première demande ou renouvellement de titre de séjour. Constitution du dossier, vérification des documents, et suivi de votre demande.",
+    bgImage:
+      "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    slug: "naturalisation",
+    icon: "flag",
+    title: "Naturalisation",
+    desc: "Accompagnement pour votre demande de naturalisation française. Préparation du dossier, vérification des conditions, et suivi de la procédure.",
+    bgImage:
+      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    slug: "regroupement-familial",
+    icon: "diversity_3",
+    title: "Regroupement familial",
+    desc: "Aide pour faire venir votre famille en France. Constitution du dossier OFII, vérification des conditions de ressources et de logement.",
+    bgImage:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    slug: "regularisation",
+    icon: "balance",
+    title: "Régularisation administrative",
+    desc: "Accompagnement pour régulariser votre situation administrative en France. Analyse de votre situation et constitution du dossier adapté.",
+    bgImage:
+      "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    slug: null,
+    icon: "description",
+    title: "CV & Lettre de motivation",
+    desc: "Aide à la rédaction de votre CV et lettre de motivation adaptés au marché français. Mise en valeur de votre parcours et de vos compétences.",
+    bgImage:
+      "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=600&q=80",
+  },
+];
+
+export default function ServicesIndexPage() {
+  return (
+    <>
+      <Navbar />
+      <main className="py-12 sm:py-20">
+        <div className="max-w-content mx-auto px-page">
+          {/* Fil d'Ariane */}
+          <nav className="text-[13px] mb-8 text-on-surface-variant">
+            <Link href="/" className="hover:text-french-blue transition-colors">
+              Accueil
+            </Link>
+            <span className="mx-2 opacity-50">/</span>
+            <span className="text-ink-black font-semibold">Services</span>
+          </nav>
+
+          {/* Header */}
+          <header className="mb-12 sm:mb-16 max-w-3xl">
+            <span className="inline-block text-[11px] font-extrabold uppercase tracking-widest text-french-blue bg-french-blue/5 px-3 py-1 rounded-full border border-french-blue/10 mb-4">
+              Prestations
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-ink-black mb-4">
+              <span className="relative inline-block">
+                Nos Services
+                <BrushUnderline />
+              </span>
+            </h1>
+            <p className="text-[16px] sm:text-[18px] leading-relaxed text-on-surface-variant mt-6">
+              Découvrez l&apos;ensemble de nos prestations d&apos;accompagnement
+              administratif. Nous vous aidons à constituer des dossiers solides
+              et conformes.
+            </p>
+          </header>
+
+          {/* Grille : même style que Champs d'Intervention (photos + dégradé sombre) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {allServices.map((s, index) => {
+              const href = s.slug
+                ? `/services/${s.slug}`
+                : `/demande?service=cv`;
+              return (
+                <Link
+                  key={s.title}
+                  href={href}
+                  className="relative bg-ink-black border border-ink-black/8 transition-all duration-500 group cursor-pointer rounded-2xl p-8 flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-1 min-h-90"
+                >
+                  {/* Image de fond — même traitement que la home */}
+                  <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-2xl">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={s.bgImage}
+                      alt={s.title}
+                      className="w-full h-full object-cover opacity-95 group-hover:scale-105 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-ink-black/90 via-ink-black/40 to-transparent" />
+                  </div>
+
+                  {/* Contenu au premier plan */}
+                  <div className="relative z-10 flex flex-col h-full justify-between grow">
+                    <div>
+                      <div className="w-11 h-11 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center mb-10 transition-all duration-500 group-hover:bg-white group-hover:border-transparent group-hover:scale-105">
+                        <span
+                          className="material-symbols-outlined text-white group-hover:text-french-blue transition-colors duration-300"
+                          style={{
+                            fontSize: "20px",
+                            fontVariationSettings: "'wght' 300, 'opsz' 24",
+                          }}
+                        >
+                          {s.icon}
+                        </span>
+                      </div>
+
+                      <h2 className="text-xl font-bold text-white tracking-tight mb-3">
+                        {s.title}
+                      </h2>
+
+                      <p className="text-[13.5px] leading-relaxed text-white/80 group-hover:text-white transition-colors duration-300">
+                        {s.desc}
+                      </p>
+                    </div>
+
+                    <div className="mt-10 flex items-center justify-between pt-4 border-t border-white/10">
+                      <div className="flex items-center text-white/80 group-hover:text-white text-[11px] font-extrabold tracking-widest uppercase gap-1 transition-colors">
+                        <span className="relative pb-0.5 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-white group-hover:after:w-full after:transition-all after:duration-300">
+                          Découvrir
+                        </span>
+                        <span
+                          className="material-symbols-outlined text-[14px] transition-transform duration-300 group-hover:translate-x-1"
+                          style={{ fontVariationSettings: "'wght' 300" }}
+                        >
+                          arrow_right_alt
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-mono font-bold text-white/30 group-hover:text-white/60 transition-colors">
+                        [ 0{index + 1} ]
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* CTA bas de page */}
+          <section className="mt-16 bg-linear-to-br from-french-blue to-[#000053] text-white rounded-2xl p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-72 h-72 bg-marianne-red/20 blur-3xl rounded-full -translate-y-1/3 translate-x-1/4 pointer-events-none" />
+            <div className="relative">
+              <h2 className="text-xl sm:text-2xl font-black tracking-tight mb-2">
+                Vous ne trouvez pas votre besoin ?
+              </h2>
+              <p className="text-[15px] text-white/80">
+                Décrivez votre situation et nous vous proposerons un
+                accompagnement adapté.
+              </p>
+            </div>
+            <Link
+              href="/demande"
+              className="relative inline-flex items-center justify-center bg-white text-french-blue hover:bg-white/90 px-7 py-4 rounded-xl text-[14px] font-bold tracking-wide shadow-md transition-all whitespace-nowrap"
+            >
+              Demander un service
+              <span
+                className="material-symbols-outlined text-[16px] ml-2"
+                style={{ fontVariationSettings: "'wght' 300" }}
+              >
+                arrow_right_alt
+              </span>
+            </Link>
+          </section>
+        </div>
+      </main>
+      <Footer />
+    </>
+  );
+}

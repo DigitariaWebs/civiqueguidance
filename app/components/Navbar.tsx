@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const links = [
-  { href: "#services", label: "Services" },
-  { href: "#expertise", label: "Expertise" },
-  { href: "#apropos", label: "À propos" },
+  { href: "/services", label: "Services" },
+  { href: "/#expertise", label: "Expertise" },
+  { href: "/a-propos", label: "À propos" },
 ];
 
 export default function Navbar() {
@@ -44,13 +44,7 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          <Link
-            href="#services"
-            className="text-[14px] font-bold text-french-blue active-nav-item"
-          >
-            Services
-          </Link>
-          {links.slice(1).map((l) => (
+          {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
@@ -59,9 +53,12 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <button className="bg-french-blue text-white px-6 py-3 rounded-lg text-[14px] font-bold hover:opacity-90 transition-opacity active:scale-[0.98]">
-            Prendre rendez-vous
-          </button>
+          <Link
+            href="/demande"
+            className="bg-french-blue text-white px-6 py-3 rounded-lg text-[14px] font-bold hover:opacity-90 transition-opacity active:scale-[0.98]"
+          >
+            Demander un service
+          </Link>
         </div>
 
         <button
@@ -87,9 +84,13 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <button className="bg-french-blue text-white px-6 py-3 rounded-lg text-[14px] font-bold">
-            Prendre rendez-vous
-          </button>
+          <Link
+            href="/demande"
+            onClick={() => setOpen(false)}
+            className="bg-french-blue text-white px-6 py-3 rounded-lg text-[14px] font-bold text-center"
+          >
+            Demander un service
+          </Link>
         </div>
       )}
     </nav>

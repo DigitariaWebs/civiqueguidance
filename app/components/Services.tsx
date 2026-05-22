@@ -1,47 +1,55 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import BrushUnderline from "./BrushUnderline";
 
 const services = [
   {
+    slug: "demandeurs-asile",
     icon: "gavel",
     title: "Demandeurs d'asile",
-    desc: "Accompagnement complet pour les procédures OFPRA et CNDA, rédaction de récits et préparation aux entretiens.",
+    desc: "Accompagnement pour votre demande d'asile. Aide OFPRA, préparation entretien, suivi complet.",
     gridClass: "md:col-span-2 lg:col-span-7",
     bgImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
   },
   {
+    slug: "etudiants",
     icon: "school",
-    title: "Étudiants",
-    desc: "Gestion des visas d'études, renouvellement de titres et changement de statut.",
+    title: "Étudiants (France & Canada)",
+    desc: "Études en France ou Canada. Inscription, visa, titre de séjour étudiant.",
     gridClass: "md:col-span-1 lg:col-span-5",
     bgImage: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=600&q=80",
   },
   {
+    slug: "titre-de-sejour",
     icon: "badge",
     title: "Titre de séjour",
-    desc: "Première demande ou renouvellement, nous sécurisons vos dossiers pour éviter les refus et les OQTF.",
+    desc: "Première demande ou renouvellement. Constitution et vérification du dossier.",
     gridClass: "md:col-span-1 lg:col-span-5",
-    bgImage: "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80",
+    bgImage: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=600&q=80",
   },
   {
+    slug: "naturalisation",
     icon: "flag",
     title: "Naturalisation",
-    desc: "Accès à la nationalité française par décret ou mariage. Audit de dossier et préparation rigoureuse aux tests.",
+    desc: "Demande de nationalité française. Préparation complète du dossier.",
     gridClass: "md:col-span-2 lg:col-span-7",
     bgImage: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
   },
   {
+    slug: "regroupement-familial",
     icon: "diversity_3",
     title: "Regroupement familial",
-    desc: "Réunissez votre famille en France avec une assistance experte sur les conditions de ressources et de logement.",
+    desc: "Faire venir votre famille en France. Dossier OFII, conditions de ressources.",
     gridClass: "md:col-span-1 lg:col-span-6",
     bgImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80",
   },
   {
+    slug: "regularisation",
     icon: "balance",
     title: "Régularisation",
-    desc: "Conseil juridique pour les situations irrégulières (travail, vie privée et familiale) selon la circulaire Valls.",
+    desc: "Régulariser votre situation administrative en France.",
     gridClass: "md:col-span-1 lg:col-span-6",
     bgImage: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80",
   },
@@ -64,18 +72,8 @@ export default function Services() {
                 Champs d&apos;Intervention
               </h2>
               
-              {/* Le fameux trait rouge incurvé dynamique (effet pinceau / feutre de ta capture) */}
-              <div className="absolute left-0 bottom-0 w-full max-w-[280px] h-[8px] pointer-events-none">
-                <svg viewBox="0 0 300 10" width="100%" height="100%" preserveAspectRatio="none">
-                  <path
-                    d="M5 5 Q 150 9, 295 4"
-                    fill="none"
-                    stroke="#E1000F"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
+              {/* Trait pinceau rouge marianne — composant partagé */}
+              <BrushUnderline />
             </div>
 
             <p className="text-[14px] text-on-surface-variant leading-relaxed opacity-80 mt-5">
@@ -93,20 +91,21 @@ export default function Services() {
         {/* Grille Bento avec Photos en Couleur et Zoom Unique */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
           {services.map((s, index) => (
-            <article
+            <Link
+              href={`/services/${s.slug}`}
               key={s.title}
               className={`relative bg-ink-black border border-ink-black/[0.08] transition-all duration-500 group cursor-pointer rounded-2xl p-8 flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-1 ${s.gridClass}`}
             >
               
               {/* IMAGE EN BACKGROUND : En couleur, pas d'overlay de couleur crado, juste un zoom propre */}
               <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-2xl">
-                <img 
-                  src={s.bgImage} 
+                <img
+                  src={s.bgImage}
                   alt={s.title}
-                  className="w-full h-full object-cover opacity-65 group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className="w-full h-full object-cover opacity-95 group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
-                {/* Dégradé neutre permanent (noir à transparent) pour assurer la lisibilité parfaite du texte blanc */}
-                <div className="absolute inset-0 bg-linear-to-t from-ink-black via-ink-black/80 to-ink-black/20" />
+                {/* Dégradé doux : noir dense en bas pour lisibilité du texte, transparent en haut */}
+                <div className="absolute inset-0 bg-linear-to-t from-ink-black/90 via-ink-black/40 to-transparent" />
               </div>
 
               {/* CONTENU AU PREMIER PLAN */}
@@ -156,10 +155,25 @@ export default function Services() {
                 </div>
 
               </div>
-            </article>
+            </Link>
           ))}
         </div>
 
+        {/* CTA : voir tous les services */}
+        <div className="mt-12 flex justify-center">
+          <Link
+            href="/services"
+            className="group inline-flex items-center gap-3 bg-ink-black hover:bg-french-blue text-white px-8 py-4 rounded-xl text-[14px] font-bold tracking-wide shadow-md transition-all"
+          >
+            Voir tous les services
+            <span
+              className="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:translate-x-1"
+              style={{ fontVariationSettings: "'wght' 400" }}
+            >
+              arrow_right_alt
+            </span>
+          </Link>
+        </div>
       </div>
     </section>
   );

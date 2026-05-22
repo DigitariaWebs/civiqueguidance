@@ -1,101 +1,139 @@
+"use client";
+
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 const columns = [
   {
     title: "Services",
-    links: ["Asile", "Titres de séjour", "Naturalisation", "Regroupement"],
+    links: [
+      { label: "Demandeurs d'asile", href: "/services/demandeurs-asile" },
+      { label: "Étudiants", href: "/services/etudiants" },
+      { label: "Titre de séjour", href: "/services/titre-de-sejour" },
+      { label: "Naturalisation", href: "/services/naturalisation" },
+      { label: "Entreprise", href: "#" },
+    ],
   },
   {
-    title: "Information",
-    links: ["Contact", "Expertise", "Tarifs"],
+    title: "À propos",
+    links: [
+      { label: "Contact", href: "/demande" },
+      { label: "FAQ", href: "#" },
+    ],
   },
   {
     title: "Légal",
-    links: ["Mentions Légales", "Politique de Confidentialité", "CGU"],
+    links: [
+      { label: "Mentions légales", href: "#" },
+      { label: "Confidentialité", href: "#" },
+      { label: "Conditions d'utilisation", href: "#" },
+    ],
   },
 ];
 
 export default function Footer() {
   return (
-    // Fond clair officiel (style service-public.fr) avec texte sombre pour la clarté et le sérieux
-    <footer className="relative bg-[#f6f6f6] border-t-2 border-[#000091] text-ink-black overflow-hidden">
-      
-      <div className="relative grid grid-cols-2 md:grid-cols-12 gap-8 sm:gap-6 px-page py-12 sm:py-16 max-w-content mx-auto">
-        
-        {/* Colonne d'identité (Logo de type républicain) */}
-        <div className="col-span-2 md:col-span-4 mb-4 md:mb-0">
-          <div className="flex items-center gap-4 mb-6">
-            {/* Simulation du bloc Marianne/Gouvernemental clean */}
-            <div className="flex flex-col border-l-2 border-[#000091] pl-3 py-1 uppercase tracking-wider font-extrabold text-[11px] leading-tight text-ink-black">
-              <span>République</span>
-              <span>Française</span>
-            </div>
-            
-            <div className="h-8 w-px bg-ink-black/20" /> {/* Séparateur fin */}
+    <footer className="relative bg-[#050524] text-white overflow-hidden">
+      {/* Liseré tricolore en haut */}
+      <div className="absolute top-0 left-0 w-full h-[3px] flex pointer-events-none">
+        <div className="w-[40%] h-full bg-[#000091]" />
+        <div className="w-[10%] h-full bg-white opacity-20" />
+        <div className="w-[50%] h-full bg-[#E1000F]" />
+      </div>
 
-            <div className="flex items-center gap-2">
-              <Image
-                src="/logo.png"
-                alt="DémarchesCivique"
-                width={32}
-                height={32}
-                className="h-8 w-8 object-contain"
-              />
-              <span className="text-[18px] font-black tracking-tight text-ink-black">
-                DémarchesCivique
-              </span>
-            </div>
+      {/* Halo de fond */}
+      <div className="absolute top-0 right-1/4 w-[300px] h-[300px] bg-[#000091]/15 blur-[100px] rounded-full pointer-events-none" />
+
+      <div className="relative grid grid-cols-2 md:grid-cols-12 gap-8 sm:gap-6 px-page py-16 sm:py-20 max-w-content mx-auto z-10">
+        {/* Colonne identité + contact direct */}
+        <div className="col-span-2 md:col-span-5 mb-4 md:mb-0">
+          <div className="flex items-center gap-3 mb-6">
+            <Image
+              src="/logo.png"
+              alt="DémarchesCivique"
+              width={48}
+              height={48}
+              className="h-12 w-12 object-contain"
+            />
+            <span className="text-[18px] font-black tracking-tight text-white">
+              DémarchesCivique
+            </span>
           </div>
-          
-          <p className="text-[14px] text-on-surface-variant mb-6 leading-relaxed max-w-sm">
-            Accompagnement privé, indépendant et juridique pour les étrangers en France. Une expertise au service de votre intégration.
+
+          <p className="text-[14px] text-white/70 mb-8 leading-relaxed max-w-sm">
+            Accompagnement administratif privé et indépendant pour les
+            étrangers en France. Une expertise au service de votre intégration.
           </p>
-          
-          {/* Boutons de contact officiels et épurés (pas de ronds rouges vifs) */}
-          <div className="flex gap-2">
-            <Link
-              href="#"
-              aria-label="Partager"
-              className="px-4 py-2 text-xs font-semibold rounded-md border border-[#000091] text-[#000091] bg-white hover:bg-[#f0f0ff] flex items-center gap-2 transition-colors"
-            >
-              <span className="material-symbols-outlined text-[16px]">share</span>
-              Partager
-            </Link>
-            <Link
-              href="#"
-              aria-label="Email"
-              className="px-4 py-2 text-xs font-semibold rounded-md border border-[#000091] text-[#000091] bg-white hover:bg-[#f0f0ff] flex items-center gap-2 transition-colors"
-            >
-              <span className="material-symbols-outlined text-[16px]">mail</span>
-              Nous écrire
-            </Link>
-          </div>
+
+          {/* Coordonnées de contact */}
+          <ul className="space-y-3 mb-6">
+            <li className="flex items-center gap-3">
+              <span
+                className="material-symbols-outlined text-white/60 text-[18px]"
+                style={{ fontVariationSettings: "'wght' 300" }}
+              >
+                call
+              </span>
+              <a
+                href="tel:+33751252309"
+                className="text-[14px] text-white/90 hover:text-white transition-colors"
+              >
+                +33 7 51 25 23 09
+              </a>
+            </li>
+            <li className="flex items-center gap-3">
+              <span
+                className="material-symbols-outlined text-white/60 text-[18px]"
+                style={{ fontVariationSettings: "'wght' 300" }}
+              >
+                mail
+              </span>
+              <a
+                href="mailto:service.horizon224@gmail.com"
+                className="text-[14px] text-white/90 hover:text-white transition-colors break-all"
+              >
+                service.horizon224@gmail.com
+              </a>
+            </li>
+            <li className="flex items-center gap-3">
+              <span
+                className="material-symbols-outlined text-white/60 text-[18px]"
+                style={{ fontVariationSettings: "'wght' 300" }}
+              >
+                schedule
+              </span>
+              <span className="text-[14px] text-white/90">
+                Lun – Sam : 9h – 20h
+              </span>
+            </li>
+          </ul>
         </div>
 
-        {/* Liens de navigation */}
+        {/* Colonnes liens */}
         {columns.map((col, i) => (
           <div
             key={col.title}
             className={
               i === 0
-                ? "md:col-span-2 md:col-start-6"
+                ? "md:col-span-3"
                 : i === 1
                 ? "md:col-span-2"
-                : "md:col-span-3"
+                : "md:col-span-2"
             }
           >
-            <h5 className="text-[12px] font-black text-ink-black mb-4 uppercase tracking-widest">
+            <h5 className="text-[11px] font-extrabold text-white/40 mb-5 uppercase tracking-widest">
               {col.title}
             </h5>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3">
               {col.links.map((l) => (
-                <li key={l}>
+                <li key={l.label}>
                   <Link
-                    href="#"
-                    className="text-[14px] text-on-surface-variant hover:text-[#000091] hover:underline underline-offset-4 transition-all"
+                    href={l.href}
+                    className="text-[14px] text-white/70 hover:text-white transition-colors flex items-center gap-0 hover:gap-1.5 duration-300 group"
                   >
-                    {l}
+                    <span className="w-0 h-[1px] bg-[#E1000F] transition-all duration-300 group-hover:w-3" />
+                    {l.label}
                   </Link>
                 </li>
               ))}
@@ -104,14 +142,15 @@ export default function Footer() {
         ))}
       </div>
 
-      {/* Bandeau de copyright & Mentions légales obligatoires */}
-      <div className="relative border-t border-ink-black/10 py-6 px-page max-w-content mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-[12px] text-on-surface-variant/80">
+      {/* Bandeau inférieur de Copyright */}
+      <div className="relative border-t border-white/5 py-6 px-page max-w-content mx-auto z-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-[12px] text-white/50">
           <p>
-            © {new Date().getFullYear()} DémarchesCivique. Service indépendant d&apos;accompagnement.
+            © {new Date().getFullYear()} DémarchesCivique. Tous droits réservés.
           </p>
-          <div className="flex gap-4 text-[11px]">
-            <span className="text-[#e1000f] font-bold">●</span> Non affilié à l&apos;administration publique.
+          <div className="flex items-center gap-2 text-[11px] bg-white/[0.03] px-3 py-1.5 rounded-lg border border-white/5">
+            <span className="text-[#e1000f] text-[8px] animate-pulse">●</span>{" "}
+            Accompagnement administratif – pas un cabinet juridique.
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import BrushUnderline from "./BrushUnderline";
 
 export default function Hero() {
   return (
@@ -15,21 +16,7 @@ export default function Hero() {
               Accompagnement d&apos;excellence pour vos{" "}
               <span className="relative inline-block text-french-blue">
                 démarches en France.
-                <svg
-                  className="absolute -bottom-2 left-0 w-full text-marianne-red"
-                  height="10"
-                  viewBox="0 0 300 10"
-                  preserveAspectRatio="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M 0,6 Q 75,0 150,6 Q 225,12 300,6"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    fill="none"
-                    strokeLinecap="round"
-                  />
-                </svg>
+                <BrushUnderline />
               </span>
             </h1>
 

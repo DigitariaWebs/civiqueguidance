@@ -1,4 +1,5 @@
 import React from "react";
+import BrushUnderline from "./BrushUnderline";
 
 const steps = [
   {
@@ -48,7 +49,7 @@ export default function Process() {
     <section className="py-16 sm:py-24 bg-surface-container-lowest relative overflow-hidden">
       {/* Subtle Background Pattern (Optional but recommended) */}
       <div className="absolute inset-0 opacity-[0.03] text-ink-black pointer-events-none">
-        <svg width="100%" height="100%"><dd><pattern id="uav" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M13 1a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" fill="currentColor"></path></pattern></dd><rect width="100%" height="100%" fill="url(#uav)"></rect></svg>
+        <svg width="100%" height="100%"><defs><pattern id="uav" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M13 1a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" fill="currentColor"></path></pattern></defs><rect width="100%" height="100%" fill="url(#uav)"></rect></svg>
       </div>
 
       <div className="max-w-content mx-auto px-page relative z-10">
@@ -62,7 +63,10 @@ export default function Process() {
             Méthodologie
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-ink-black mb-6">
-            Notre Processus d&apos;Accompagnement
+            <span className="relative inline-block">
+              Notre Processus d&apos;Accompagnement
+              <BrushUnderline />
+            </span>
           </h2>
           <p className="text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
             Une méthode rigoureuse en quatre étapes pour garantir la clarté,

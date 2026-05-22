@@ -78,9 +78,19 @@
   body {
     font-family: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
     color: var(--color-on-surface);
-    /* Transparent pour laisser apparaître <SiteBackground /> qui est en -z-10 */
-    background-color: transparent;
     overflow-x: hidden;
+    background-color: var(--color-surface-container-lowest);
+  }
+
+  /* Pattern de points (le même que Notre Processus), figé en fixed pour ne pas scroller */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'><path d='M13 1a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm0 4a2 2 0 1 1-4 0 2 2 0 0 1 4 0z' fill='%23161616' fill-opacity='0.03'/></svg>");
+    background-size: 24px 24px;
   }
 }
 
