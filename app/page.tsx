@@ -5,6 +5,7 @@ import Process from "./components/Process";
 import TrustFactors from "./components/TrustFactors";
 import CTA from "./components/CTA";
 import CoverageSection from "./components/CoverageSection";
+import BookingCalendar from "./components/BookingCalendar";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
         <TrustFactors />
         <CTA />
         <CoverageSection />
+        <BookingCalendar />
       </main>
       <Footer />
     </>

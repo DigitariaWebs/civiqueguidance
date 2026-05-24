@@ -27,7 +27,7 @@ const services = [
     title: "Titre de séjour",
     desc: "Première demande ou renouvellement. Constitution et vérification du dossier.",
     gridClass: "md:col-span-1 lg:col-span-5",
-    bgImage: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=600&q=80",
+    bgImage: "/titre-de-sejour.png",
   },
   {
     slug: "naturalisation",
@@ -35,7 +35,7 @@ const services = [
     title: "Naturalisation",
     desc: "Demande de nationalité française. Préparation complète du dossier.",
     gridClass: "md:col-span-2 lg:col-span-7",
-    bgImage: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
+    bgImage: "/naturalisation.png",
   },
   {
     slug: "regroupement-familial",
@@ -43,7 +43,7 @@ const services = [
     title: "Regroupement familial",
     desc: "Faire venir votre famille en France. Dossier OFII, conditions de ressources.",
     gridClass: "md:col-span-1 lg:col-span-6",
-    bgImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80",
+    bgImage: "./regroupement.png",
   },
   {
     slug: "regularisation",

@@ -39,16 +39,14 @@ const allServices: ServiceListItem[] = [
     icon: "badge",
     title: "Titre de séjour",
     desc: "Aide pour votre première demande ou renouvellement de titre de séjour. Constitution du dossier, vérification des documents, et suivi de votre demande.",
-    bgImage:
-      "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=600&q=80",
+    bgImage: "/titre-de-sejour.png",
   },
   {
     slug: "naturalisation",
     icon: "flag",
     title: "Naturalisation",
     desc: "Accompagnement pour votre demande de naturalisation française. Préparation du dossier, vérification des conditions, et suivi de la procédure.",
-    bgImage:
-      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
+    bgImage: "/naturalisation.png",
   },
   {
     slug: "regroupement-familial",
@@ -56,7 +54,7 @@ const allServices: ServiceListItem[] = [
     title: "Regroupement familial",
     desc: "Aide pour faire venir votre famille en France. Constitution du dossier OFII, vérification des conditions de ressources et de logement.",
     bgImage:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80",
+      "/regroupement.png",
   },
   {
     slug: "regularisation",
@@ -72,7 +70,7 @@ const allServices: ServiceListItem[] = [
     title: "CV & Lettre de motivation",
     desc: "Aide à la rédaction de votre CV et lettre de motivation adaptés au marché français. Mise en valeur de votre parcours et de vos compétences.",
     bgImage:
-      "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=600&q=80",
   },
 ];
 
