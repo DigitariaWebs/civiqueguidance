@@ -35,6 +35,7 @@ export default function Hero() {
                 className="inline-flex items-center justify-center gap-2 bg-french-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-[15px] sm:text-[16px] font-bold hover:opacity-95 transition-all shadow-sm"
               >
                 Démarrer ma procédure
+<<<<<<< HEAD
                 <span
                   className="material-symbols-outlined text-[18px]"
                   style={{ fontVariationSettings: "'wght' 400" }}
@@ -46,6 +47,11 @@ export default function Hero() {
                 href="/services"
                 className="inline-flex items-center justify-center border-2 border-french-blue text-french-blue px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-[15px] sm:text-[16px] font-bold hover:bg-french-blue hover:text-white transition-all"
               >
+=======
+              </button>
+
+              <button className="border-2 border-french-blue text-french-blue px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-[15px] sm:text-[16px] font-bold hover:bg-french-blue hover:text-white transition-all">
+>>>>>>> c9413ae7c9545f3835e78c802ef0418bd5c3ffd1
                 Découvrir nos services
               </Link>
             </div>
@@ -54,6 +60,7 @@ export default function Hero() {
           {/* Composition 2 photos */}
           <div className="lg:col-span-5 relative mx-auto w-full max-w-md lg:max-w-none">
             <div className="relative w-full aspect-square">
+<<<<<<< HEAD
               {/* Image principale (haut-droite) */}
               <div className="absolute top-0 right-0 w-[82%] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-[6px] border-white">
                 <Image
@@ -81,6 +88,20 @@ export default function Hero() {
               {/* Coins décoratifs */}
               <div className="absolute -bottom-4 -left-4 w-16 h-16 border-l-8 border-b-8 border-french-blue z-0" />
               <div className="absolute -top-4 -right-4 w-16 h-16 border-r-8 border-t-8 border-marianne-red z-0" />
+=======
+              <Image
+                src="/hero.png"
+                alt="Ambiance de bureau professionnel"
+                fill
+                className="object-cover rounded-2xl shadow-2xl border-8 border-white/60"
+                sizes="(min-width: 1024px) 40vw, (min-width: 640px) 60vw, 90vw"
+                quality={95}
+                priority
+              />
+
+              <div className="absolute -bottom-4 -left-4 w-16 h-16 border-l-8 border-b-8 border-french-blue" />
+              <div className="absolute -top-4 -right-4 w-16 h-16 border-r-8 border-t-8 border-marianne-red" />
+>>>>>>> c9413ae7c9545f3835e78c802ef0418bd5c3ffd1
             </div>
           </div>
         </div>
