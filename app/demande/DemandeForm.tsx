@@ -23,14 +23,16 @@ export default function DemandeForm() {
 
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const [error, setError] = useState<string | null>(null);
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
+    setError(null);
     const fd = new FormData(e.currentTarget);
     const service = String(fd.get("service") ?? "");
 
-    // Sauvegarde locale (visible dans le dashboard)
-    saveDemande({
+    const result = await saveDemande({
       name: String(fd.get("name") ?? ""),
       email: String(fd.get("email") ?? ""),
       phone: String(fd.get("phone") ?? ""),
@@ -41,8 +43,15 @@ export default function DemandeForm() {
       time: prefilledTime || undefined,
     });
 
-    // Simulation visuelle de l'envoi (pas de backend)
-    setTimeout(() => setStatus("sent"), 600);
+    if (!result) {
+      setError(
+        "Une erreur est survenue lors de l'envoi. Merci de réessayer ou de nous contacter directement."
+      );
+      setStatus("idle");
+      return;
+    }
+
+    setStatus("sent");
   }
 
   if (status === "sent") {
@@ -149,6 +158,13 @@ export default function DemandeForm() {
           className="form-input resize-y"
         />
       </Field>
+
+      {error && (
+        <div className="bg-marianne-red/5 border border-marianne-red/20 text-marianne-red rounded-xl px-4 py-3 text-[13px] flex items-center gap-2">
+          <span className="material-symbols-outlined text-[18px]">error</span>
+          {error}
+        </div>
+      )}
 
       <button
         type="submit"

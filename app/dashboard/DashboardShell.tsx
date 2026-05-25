@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { isAuthed, logout } from "@/lib/admin-auth";
+import { getCurrentUser, logout } from "@/lib/admin-auth";
 
 const navLinks = [
   { href: "/", label: "Accueil" },
@@ -22,18 +22,24 @@ export default function DashboardShell({
   const router = useRouter();
   const pathname = usePathname();
   const [ready, setReady] = useState(false);
+  const [email, setEmail] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isAuthed()) {
-      router.replace("/admin/login");
-    } else {
+    (async () => {
+      const user = await getCurrentUser();
+      if (!user) {
+        router.replace("/admin/login");
+        return;
+      }
+      setEmail(user.email ?? null);
       setReady(true);
-    }
+    })();
   }, [router]);
 
-  function onLogout() {
-    logout();
+  async function onLogout() {
+    await logout();
     router.replace("/");
+    router.refresh();
   }
 
   if (!ready) {
@@ -46,8 +52,7 @@ export default function DashboardShell({
 
   return (
     <div className="min-h-screen bg-[#f6f6fa]">
-      {/* Top bar admin */}
-      <header className="bg-white border-b border-ink-black/[0.08] sticky top-0 z-40">
+      <header className="bg-white border-b border-ink-black/8 sticky top-0 z-40">
         <div className="flex items-center justify-between gap-6 px-4 md:px-8 h-16 max-w-content mx-auto">
           <Link href="/" className="flex items-center gap-3">
             <Image
@@ -81,19 +86,26 @@ export default function DashboardShell({
             })}
           </nav>
 
-          <button
-            type="button"
-            onClick={onLogout}
-            className="inline-flex items-center gap-2 bg-marianne-red/5 hover:bg-marianne-red text-marianne-red hover:text-white border border-marianne-red/20 hover:border-marianne-red px-4 py-2 rounded-lg text-[13px] font-bold transition-all"
-          >
-            <span
-              className="material-symbols-outlined text-[18px]"
-              style={{ fontVariationSettings: "'wght' 400" }}
+          <div className="flex items-center gap-3">
+            {email && (
+              <span className="hidden lg:inline text-[12px] text-on-surface-variant">
+                {email}
+              </span>
+            )}
+            <button
+              type="button"
+              onClick={onLogout}
+              className="inline-flex items-center gap-2 bg-marianne-red/5 hover:bg-marianne-red text-marianne-red hover:text-white border border-marianne-red/20 hover:border-marianne-red px-4 py-2 rounded-lg text-[13px] font-bold transition-all"
             >
-              logout
-            </span>
-            <span className="hidden sm:inline">Déconnexion</span>
-          </button>
+              <span
+                className="material-symbols-outlined text-[18px]"
+                style={{ fontVariationSettings: "'wght' 400" }}
+              >
+                logout
+              </span>
+              <span className="hidden sm:inline">Déconnexion</span>
+            </button>
+          </div>
         </div>
       </header>
 

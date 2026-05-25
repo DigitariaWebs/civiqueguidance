@@ -1,29 +1,33 @@
+import { createClient } from "./supabase/browser";
+
 /**
- * Auth admin minimaliste basée sur localStorage.
- * Pour la démo uniquement. Pour la prod il faut une vraie auth (NextAuth, Clerk, Supabase Auth…).
+ * Auth admin via Supabase Auth (email + password).
+ * Pour créer le compte admin la première fois :
+ *   1. Va dans https://supabase.com/dashboard/project/kfsublmmlcxqnaxoojpy/auth/users
+ *   2. Clique "Add user" → "Create new user"
+ *   3. Renseigne l'email service.horizon224@gmail.com + un mot de passe
+ *   4. Coche "Auto Confirm User" pour activer le compte directement
  */
 
-const KEY = "ds_admin_authed";
-
-// Mot de passe codé en dur — à remplacer par une vraie auth côté serveur.
-// Pour le moment : "admin2026"
-const ADMIN_PASSWORD = "admin2026";
-
-export function login(username: string, password: string): boolean {
-  if (typeof window === "undefined") return false;
-  if (password === ADMIN_PASSWORD && username.trim().length > 0) {
-    localStorage.setItem(KEY, "1");
-    return true;
-  }
-  return false;
+export async function login(
+  email: string,
+  password: string
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const supabase = createClient();
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) return { ok: false, error: error.message };
+  return { ok: true };
 }
 
-export function logout() {
-  if (typeof window === "undefined") return;
-  localStorage.removeItem(KEY);
+export async function logout(): Promise<void> {
+  const supabase = createClient();
+  await supabase.auth.signOut();
 }
 
-export function isAuthed(): boolean {
-  if (typeof window === "undefined") return false;
-  return localStorage.getItem(KEY) === "1";
+export async function getCurrentUser() {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  return user;
 }

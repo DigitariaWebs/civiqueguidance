@@ -11,19 +11,20 @@ export default function AdminLoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setBusy(true);
     setError(null);
     const fd = new FormData(e.currentTarget);
-    const ok = login(
-      String(fd.get("username") ?? ""),
+    const result = await login(
+      String(fd.get("email") ?? ""),
       String(fd.get("password") ?? "")
     );
-    if (ok) {
+    if (result.ok) {
       router.push("/dashboard");
+      router.refresh();
     } else {
-      setError("Identifiants incorrects.");
+      setError(translateError(result.error));
       setBusy(false);
     }
   }
@@ -41,7 +42,7 @@ export default function AdminLoginPage() {
           Retour au site
         </Link>
 
-        <div className="bg-white border border-ink-black/[0.08] rounded-2xl p-8 sm:p-10 shadow-xl">
+        <div className="bg-white border border-ink-black/8 rounded-2xl p-8 sm:p-10 shadow-xl">
           <div className="flex items-center gap-3 mb-8">
             <Image
               src="/logo.png"
@@ -63,14 +64,14 @@ export default function AdminLoginPage() {
           <form onSubmit={onSubmit} className="space-y-5">
             <label className="block">
               <span className="block text-[12px] font-bold uppercase tracking-wider text-on-surface-variant mb-2">
-                Identifiant
+                Email
               </span>
               <input
-                type="text"
-                name="username"
+                type="email"
+                name="email"
                 required
-                autoComplete="username"
-                placeholder="admin"
+                autoComplete="email"
+                placeholder="vous@exemple.com"
                 className="w-full bg-white border border-ink-black/10 rounded-xl px-4 py-3 text-[15px] text-ink-black placeholder:text-ink-black/30 focus:border-french-blue focus:ring-2 focus:ring-french-blue/10 focus:outline-none transition-all"
               />
             </label>
@@ -107,11 +108,20 @@ export default function AdminLoginPage() {
           </form>
 
           <p className="text-[12px] text-on-surface-variant/70 text-center mt-6">
-            Accès réservé aux administrateurs. Démo : <code>admin</code> /{" "}
-            <code>admin2026</code>
+            Accès réservé aux administrateurs.
           </p>
         </div>
       </div>
     </main>
   );
+}
+
+function translateError(msg: string): string {
+  if (msg.toLowerCase().includes("invalid login credentials")) {
+    return "Email ou mot de passe incorrect.";
+  }
+  if (msg.toLowerCase().includes("email not confirmed")) {
+    return "Email pas encore confirmé.";
+  }
+  return msg;
 }

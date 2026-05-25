@@ -30,25 +30,35 @@ export default function DashboardPage() {
 
 function DashboardContent() {
   const [demandes, setDemandes] = useState<Demande[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<TabId>("rendez-vous");
 
   useEffect(() => {
-    setDemandes(loadDemandes());
+    (async () => {
+      setLoading(true);
+      setDemandes(await loadDemandes());
+      setLoading(false);
+    })();
   }, []);
 
-  function refresh() {
-    setDemandes(loadDemandes());
+  async function refresh() {
+    setDemandes(await loadDemandes());
   }
 
-  function onChangeStatut(id: string, statut: Statut) {
-    updateStatut(id, statut);
-    refresh();
+  async function onChangeStatut(id: string, statut: Statut) {
+    // Optimistic UI : on met à jour localement avant la réponse serveur
+    setDemandes((ds) =>
+      ds.map((d) => (d.id === id ? { ...d, statut } : d))
+    );
+    await updateStatut(id, statut);
+    await refresh();
   }
 
-  function onDelete(id: string) {
+  async function onDelete(id: string) {
     if (!confirm("Supprimer cette demande ?")) return;
-    deleteDemande(id);
-    refresh();
+    setDemandes((ds) => ds.filter((d) => d.id !== id));
+    await deleteDemande(id);
+    await refresh();
   }
 
   // Stats par catégorie
@@ -86,7 +96,7 @@ function DashboardContent() {
             className={`text-left bg-white border rounded-2xl p-5 transition-all ${
               activeTab === t.id
                 ? "border-french-blue shadow-md ring-2 ring-french-blue/10"
-                : "border-ink-black/[0.08] hover:border-french-blue/30 hover:shadow-sm"
+                : "border-ink-black/8 hover:border-french-blue/30 hover:shadow-sm"
             }`}
           >
             <div className="flex items-center justify-between mb-3">
@@ -113,7 +123,7 @@ function DashboardContent() {
       </div>
 
       {/* Tabs nav */}
-      <div className="border-b border-ink-black/[0.08] flex flex-wrap gap-1">
+      <div className="border-b border-ink-black/8 flex flex-wrap gap-1">
         {tabs.map((t) => {
           const active = activeTab === t.id;
           return (
@@ -129,7 +139,7 @@ function DashboardContent() {
             >
               {t.label}
               {active && (
-                <span className="absolute bottom-0 left-2 right-2 h-[2px] bg-french-blue rounded-t" />
+                <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-french-blue rounded-t" />
               )}
             </button>
           );
@@ -186,10 +196,10 @@ function DemandesTable({
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-ink-black/[0.08] overflow-hidden shadow-xs">
+    <div className="bg-white rounded-2xl border border-ink-black/8 overflow-hidden shadow-xs">
       <div className="overflow-x-auto">
         <table className="w-full text-left">
-          <thead className="bg-[#fafafc] border-b border-ink-black/[0.06]">
+          <thead className="bg-[#fafafc] border-b border-ink-black/6">
             <tr className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">
               <th className="px-5 py-4">Nom</th>
               <th className="px-5 py-4">Email</th>
@@ -205,7 +215,7 @@ function DemandesTable({
             {demandes.map((d) => (
               <tr
                 key={d.id}
-                className="border-b border-ink-black/[0.04] last:border-b-0 hover:bg-[#fafafc] transition-colors"
+                className="border-b border-ink-black/4 last:border-b-0 hover:bg-[#fafafc] transition-colors"
               >
                 <td className="px-5 py-4 text-[14px] font-semibold text-ink-black whitespace-nowrap">
                   {d.name}
@@ -303,7 +313,7 @@ function PrestationsPanel({ demandes }: { demandes: Demande[] }) {
       {counts.map(([slug, info]) => (
         <div
           key={slug}
-          className="bg-white border border-ink-black/[0.08] rounded-2xl p-5 shadow-xs"
+          className="bg-white border border-ink-black/8 rounded-2xl p-5 shadow-xs"
         >
           <div className="flex items-center justify-between mb-3">
             <p className="text-[11px] font-bold uppercase tracking-wider text-french-blue">
@@ -341,7 +351,7 @@ function MessagesPanel({ demandes }: { demandes: Demande[] }) {
       {items.map((d) => (
         <article
           key={d.id}
-          className="bg-white border border-ink-black/[0.08] rounded-2xl p-6 shadow-xs"
+          className="bg-white border border-ink-black/8 rounded-2xl p-6 shadow-xs"
         >
           <div className="flex items-center justify-between mb-3 gap-3 flex-wrap">
             <div>
