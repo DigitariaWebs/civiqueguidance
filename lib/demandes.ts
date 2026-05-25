@@ -1,4 +1,4 @@
-import { createClient } from "./supabase/browser";
+import { createClient, isSupabaseConfigured } from "./supabase/browser";
 
 export type Statut = "En attente" | "Confirmé" | "Annulé";
 
@@ -49,17 +49,26 @@ function rowToDemande(r: DemandeRow): Demande {
 }
 
 export async function loadDemandes(): Promise<Demande[]> {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from("demandes")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    console.error("[demandes] loadDemandes:", error.message);
+  if (!isSupabaseConfigured()) {
+    console.warn("[demandes] Supabase non configuré, dashboard vide");
     return [];
   }
-  return (data ?? []).map((r) => rowToDemande(r as DemandeRow));
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("demandes")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("[demandes] loadDemandes:", error.message);
+      return [];
+    }
+    return (data ?? []).map((r) => rowToDemande(r as DemandeRow));
+  } catch (e) {
+    console.error("[demandes] loadDemandes exception:", e);
+    return [];
+  }
 }
 
 export async function saveDemande(input: {
@@ -72,6 +81,10 @@ export async function saveDemande(input: {
   date?: string;
   time?: string;
 }): Promise<Demande | null> {
+  if (!isSupabaseConfigured()) {
+    console.error("[demandes] Supabase non configuré, impossible d'enregistrer");
+    return null;
+  }
   const supabase = createClient();
   const { data, error } = await supabase
     .from("demandes")

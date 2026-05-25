@@ -1,33 +1,60 @@
-import { createClient } from "./supabase/browser";
+import { createClient, isSupabaseConfigured } from "./supabase/browser";
 
 /**
  * Auth admin via Supabase Auth (email + password).
  * Pour créer le compte admin la première fois :
- *   1. Va dans https://supabase.com/dashboard/project/kfsublmmlcxqnaxoojpy/auth/users
- *   2. Clique "Add user" → "Create new user"
- *   3. Renseigne l'email service.horizon224@gmail.com + un mot de passe
- *   4. Coche "Auto Confirm User" pour activer le compte directement
+ *   1. https://supabase.com/dashboard/project/kfsublmmlcxqnaxoojpy/auth/users
+ *   2. "Add user" → "Create new user"
+ *   3. Renseigne l'email + mot de passe, coche "Auto Confirm User"
  */
 
 export async function login(
   email: string,
   password: string
 ): Promise<{ ok: true } | { ok: false; error: string }> {
-  const supabase = createClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) return { ok: false, error: error.message };
-  return { ok: true };
+  if (!isSupabaseConfigured()) {
+    return {
+      ok: false,
+      error:
+        "Supabase n'est pas configuré. Ajoute NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY dans .env.local (et redémarre le dev server), ou dans les Environment Variables de Vercel.",
+    };
+  }
+
+  try {
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) return { ok: false, error: error.message };
+    return { ok: true };
+  } catch (e) {
+    return {
+      ok: false,
+      error: e instanceof Error ? e.message : "Erreur inconnue.",
+    };
+  }
 }
 
 export async function logout(): Promise<void> {
-  const supabase = createClient();
-  await supabase.auth.signOut();
+  if (!isSupabaseConfigured()) return;
+  try {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+  } catch {
+    // ignore
+  }
 }
 
 export async function getCurrentUser() {
-  const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return user;
+  if (!isSupabaseConfigured()) return null;
+  try {
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    return user;
+  } catch {
+    return null;
+  }
 }

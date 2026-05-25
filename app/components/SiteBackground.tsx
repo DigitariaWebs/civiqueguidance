@@ -55,9 +55,9 @@ export default function SiteBackground() {
           
           {/* Lignes d'ondes majeures (L'armature du document d'État) */}
           <g opacity="0.7">
-            <path d="M-100,300 C300,100 600,600 1100,200 S1600,500,1600,500" fill="none" stroke="currentColor" strokeWidth="0.75" />
-            <path d="M-100,315 C300,115 600,615 1100,215 S1600,515" fill="none" stroke="currentColor" strokeWidth="0.75" strokeDasharray="4,4" />
-            <path d="M-100,285 C300,85 600,585 1100,185 S1600,485" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.5" />
+            <path d="M-100,300 C300,100 600,600 1100,200 S1500,400 1600,500" fill="none" stroke="currentColor" strokeWidth="0.75" />
+            <path d="M-100,315 C300,115 600,615 1100,215 S1500,415 1600,515" fill="none" stroke="currentColor" strokeWidth="0.75" strokeDasharray="4,4" />
+            <path d="M-100,285 C300,85 600,585 1100,185 S1500,385 1600,485" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.5" />
           </g>
         </svg>
       </div>
