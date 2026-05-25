@@ -86,27 +86,40 @@ export async function saveDemande(input: {
     return null;
   }
   const supabase = createClient();
-  const { data, error } = await supabase
-    .from("demandes")
-    .insert({
-      name: input.name,
-      email: input.email,
-      phone: input.phone,
-      service: input.service,
-      service_label: input.serviceLabel,
-      message: input.message,
-      date: input.date || null,
-      time: input.time || null,
-      statut: "En attente",
-    })
-    .select("*")
-    .single();
+  // INSERT seul — pas de .select() chaîné car la policy SELECT est réservée
+  // aux utilisateurs authentifiés (admin). Un visiteur anon peut insérer mais
+  // pas relire la ligne qu'il vient d'insérer.
+  const { error } = await supabase.from("demandes").insert({
+    name: input.name,
+    email: input.email,
+    phone: input.phone,
+    service: input.service,
+    service_label: input.serviceLabel,
+    message: input.message,
+    date: input.date || null,
+    time: input.time || null,
+    statut: "En attente",
+  });
 
   if (error) {
     console.error("[demandes] saveDemande:", error.message);
     return null;
   }
-  return rowToDemande(data as DemandeRow);
+
+  // On retourne un stub puisqu'on n'a pas l'id/created_at retournés
+  return {
+    id: "pending",
+    createdAt: new Date().toISOString(),
+    name: input.name,
+    email: input.email,
+    phone: input.phone,
+    service: input.service,
+    serviceLabel: input.serviceLabel,
+    message: input.message,
+    date: input.date,
+    time: input.time,
+    statut: "En attente",
+  };
 }
 
 export async function updateStatut(id: string, statut: Statut): Promise<void> {
