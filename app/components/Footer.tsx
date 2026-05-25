@@ -145,8 +145,24 @@ export default function Footer() {
       {/* Bandeau inférieur de Copyright */}
       <div className="relative border-t border-white/5 py-6 px-page max-w-content mx-auto z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-[12px] text-white/50">
-          <p>
-            © {new Date().getFullYear()} DémarchesCivique. Tous droits réservés.
+          <p className="flex items-center gap-3 flex-wrap justify-center">
+            <span>
+              © {new Date().getFullYear()} DémarchesCivique. Tous droits
+              réservés.
+            </span>
+            <span className="hidden md:inline opacity-30">·</span>
+            <Link
+              href="/admin/login"
+              className="inline-flex items-center gap-1 text-white/40 hover:text-white/80 transition-colors"
+            >
+              <span
+                className="material-symbols-outlined text-[14px]"
+                style={{ fontVariationSettings: "'wght' 300" }}
+              >
+                lock
+              </span>
+              Admin
+            </Link>
           </p>
           <div className="flex items-center gap-2 text-[11px] bg-white/[0.03] px-3 py-1.5 rounded-lg border border-white/5">
             <span className="text-[#e1000f] text-[8px] animate-pulse">●</span>{" "}

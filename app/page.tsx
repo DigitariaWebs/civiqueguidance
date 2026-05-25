@@ -6,6 +6,7 @@ import TrustFactors from "./components/TrustFactors";
 import CTA from "./components/CTA";
 import CoverageSection from "./components/CoverageSection";
 import BookingCalendar from "./components/BookingCalendar";
+import AppShowcase from "./components/AppShowcase";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
         <TrustFactors />
         <CTA />
         <CoverageSection />
+        <AppShowcase />
         <BookingCalendar />
       </main>
       <Footer />

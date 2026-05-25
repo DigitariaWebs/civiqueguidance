@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import BrushUnderline from "@/app/components/BrushUnderline";
@@ -43,7 +44,9 @@ export default function DemandePage() {
             {/* Formulaire */}
             <div className="lg:col-span-2">
               <div className="bg-white border border-ink-black/[0.08] rounded-2xl p-6 sm:p-10 shadow-md">
-                <DemandeForm />
+                <Suspense fallback={<div className="h-96" />}>
+                  <DemandeForm />
+                </Suspense>
               </div>
             </div>
 

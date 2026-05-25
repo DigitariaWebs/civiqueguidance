@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { saveDemande, SERVICE_LABELS } from "@/lib/demandes";
 
 const servicesOptions = [
   { value: "demandeurs-asile", label: "Demandeurs d'asile" },
@@ -9,16 +11,37 @@ const servicesOptions = [
   { value: "naturalisation", label: "Naturalisation française" },
   { value: "regroupement-familial", label: "Regroupement familial" },
   { value: "regularisation", label: "Régularisation administrative" },
+  { value: "cv", label: "CV & Lettre de motivation" },
   { value: "autre", label: "Autre démarche" },
 ];
 
 export default function DemandeForm() {
+  const searchParams = useSearchParams();
+  const prefilledService = searchParams.get("service") ?? "";
+  const prefilledDate = searchParams.get("date") ?? "";
+  const prefilledTime = searchParams.get("time") ?? "";
+
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
-    // Pas de backend pour l'instant — simulation visuelle de l'envoi.
+    const fd = new FormData(e.currentTarget);
+    const service = String(fd.get("service") ?? "");
+
+    // Sauvegarde locale (visible dans le dashboard)
+    saveDemande({
+      name: String(fd.get("name") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
+      service,
+      serviceLabel: SERVICE_LABELS[service] ?? service,
+      message: String(fd.get("message") ?? ""),
+      date: prefilledDate || undefined,
+      time: prefilledTime || undefined,
+    });
+
+    // Simulation visuelle de l'envoi (pas de backend)
     setTimeout(() => setStatus("sent"), 600);
   }
 
@@ -50,6 +73,24 @@ export default function DemandeForm() {
 
   return (
     <form onSubmit={onSubmit} className="space-y-5">
+      {(prefilledDate || prefilledTime) && (
+        <div className="bg-french-blue/5 border border-french-blue/15 rounded-xl p-4 flex items-center gap-3">
+          <span className="material-symbols-outlined text-french-blue">
+            event_available
+          </span>
+          <div className="flex-1 text-[14px]">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-french-blue mb-0.5">
+              Créneau pré-sélectionné
+            </p>
+            <p className="font-semibold text-ink-black">
+              {prefilledDate && formatDate(prefilledDate)}
+              {prefilledDate && prefilledTime && " · "}
+              {prefilledTime && `${prefilledTime}`}
+            </p>
+          </div>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <Field label="Nom complet" required>
           <input
@@ -82,7 +123,12 @@ export default function DemandeForm() {
       </Field>
 
       <Field label="Service souhaité" required>
-        <select name="service" required className="form-input" defaultValue="">
+        <select
+          name="service"
+          required
+          className="form-input"
+          defaultValue={prefilledService}
+        >
           <option value="" disabled>
             Sélectionnez un service
           </option>
@@ -158,4 +204,9 @@ function Field({
       {children}
     </label>
   );
+}
+
+function formatDate(iso: string) {
+  const [y, m, d] = iso.split("-");
+  return `${d}/${m}/${y}`;
 }
