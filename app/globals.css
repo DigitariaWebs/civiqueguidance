@@ -1,5 +1,66 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Marianne — police officielle de l'État français (DSFR)
+   Servie via jsdelivr depuis le package @gouvfr/dsfr
+   ============================================================ */
+@font-face {
+  font-family: "Marianne";
+  src: url("https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Light.woff2")
+    format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Marianne";
+  src: url("https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Light_Italic.woff2")
+    format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Marianne";
+  src: url("https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Marianne";
+  src: url("https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Regular_Italic.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Marianne";
+  src: url("https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Medium.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Marianne";
+  src: url("https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Marianne";
+  src: url("https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-ExtraBold.woff2")
+    format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --color-french-blue: #000091;
   --color-marianne-red: #e1000f;
@@ -18,7 +79,7 @@
   --color-primary-fixed: #e0e0ff;
   --color-on-primary-fixed: #00006e;
 
-  --font-sans: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: "Marianne", "Plus Jakarta Sans", system-ui, sans-serif;
 
   --text-headline-xl-mobile: 32px;
   --text-headline-xl-mobile--line-height: 40px;
@@ -76,7 +137,7 @@
     zoom: 0.9;
   }
   body {
-    font-family: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+    font-family: "Marianne", "Plus Jakarta Sans", system-ui, sans-serif;
     color: var(--color-on-surface);
     overflow-x: hidden;
     background-color: var(--color-surface-container-lowest);

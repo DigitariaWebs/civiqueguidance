@@ -194,6 +194,40 @@ export const services: Record<string, ServiceDetail> = {
     ],
   },
 
+  logement: {
+    title: "Aide au logement",
+    intro:
+      "Accompagnement pour trouver un logement en France et constituer un dossier de location solide auprès des bailleurs et agences.",
+    pourQui: [
+      "Nouveaux arrivants en France",
+      "Étudiants sans garant français",
+      "Familles avec enfants en cours de regroupement",
+      "Personnes en recherche de logement social",
+    ],
+    ceQueNousFaisons: [
+      "Constitution du dossier de location complet",
+      "Aide pour la demande de logement social (DALO, SYPLO)",
+      "Accompagnement aux démarches CAF (APL, ALS)",
+      "Mise en relation avec des bailleurs et associations partenaires",
+      "Préparation aux visites et entretiens avec propriétaires",
+    ],
+    ceQueNousNeFaisonsPas: [],
+    transparenceText:
+      "DémarchesCivique vous accompagne dans la recherche et la constitution de dossier. Nous ne garantissons pas l'attribution d'un logement, mais nous maximisons vos chances avec un dossier irréprochable.",
+    documents: [
+      "Pièce d'identité ou titre de séjour",
+      "3 derniers bulletins de salaire ou attestation de bourse",
+      "Avis d'imposition (si applicable)",
+      "Justificatif de domicile actuel",
+    ],
+    etapes: [
+      { n: "1", title: "Évaluation", desc: "Analyse de votre profil et budget." },
+      { n: "2", title: "Dossier", desc: "Constitution et mise en forme professionnelle." },
+      { n: "3", title: "Recherche", desc: "Accompagnement aux candidatures et visites." },
+      { n: "4", title: "Installation", desc: "Démarches CAF, assurance habitation, état des lieux." },
+    ],
+  },
+
   regularisation: {
     title: "Régularisation administrative",
     intro:

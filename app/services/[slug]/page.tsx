@@ -108,29 +108,8 @@ export default async function ServicePage({
             </section>
           </div>
 
-          {/* Ce que nous NE faisons pas + Documents */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <section className="bg-white border border-marianne-red/20 rounded-2xl p-8 shadow-xs">
-              <div className="flex items-center gap-3 mb-5">
-                <span className="material-symbols-outlined text-marianne-red">
-                  block
-                </span>
-                <h2 className="text-xl font-bold text-ink-black">
-                  Ce que nous ne faisons pas
-                </h2>
-              </div>
-              <ul className="space-y-3">
-                {service.ceQueNousNeFaisonsPas.map((item) => (
-                  <li key={item} className="flex gap-3 text-[15px] leading-6">
-                    <span className="material-symbols-outlined text-marianne-red text-[18px] mt-0.5 shrink-0">
-                      close
-                    </span>
-                    <span className="text-on-surface-variant">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-
+          {/* Documents demandés (pleine largeur, "Ce que nous ne faisons pas" retiré) */}
+          <div className="mb-6">
             <section className="bg-white border border-ink-black/[0.08] rounded-2xl p-8 shadow-xs">
               <div className="flex items-center gap-3 mb-5">
                 <span className="material-symbols-outlined text-french-blue">
@@ -140,7 +119,7 @@ export default async function ServicePage({
                   Documents demandés
                 </h2>
               </div>
-              <ul className="space-y-3">
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {service.documents.map((item) => (
                   <li key={item} className="flex gap-3 text-[15px] leading-6">
                     <span className="material-symbols-outlined text-french-blue text-[18px] mt-0.5 shrink-0">

@@ -86,6 +86,13 @@ export async function saveDemande(input: {
     return null;
   }
   const supabase = createClient();
+
+  // Si le client est connecté, on attache la demande à son compte (client_id)
+  // pour qu'il la retrouve dans son espace personnel.
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   // INSERT seul — pas de .select() chaîné car la policy SELECT est réservée
   // aux utilisateurs authentifiés (admin). Un visiteur anon peut insérer mais
   // pas relire la ligne qu'il vient d'insérer.
@@ -99,12 +106,29 @@ export async function saveDemande(input: {
     date: input.date || null,
     time: input.time || null,
     statut: "En attente",
+    client_id: user?.id ?? null,
   });
 
   if (error) {
     console.error("[demandes] saveDemande:", error.message);
     return null;
   }
+
+  // Notification email (best-effort : si Gmail pas configuré, l'API renvoie 200 sans envoyer)
+  // Ne bloque pas le retour de la fonction en cas d'erreur d'email.
+  fetch("/api/demande-notify", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: input.name,
+      email: input.email,
+      phone: input.phone,
+      serviceLabel: input.serviceLabel,
+      message: input.message,
+      date: input.date,
+      time: input.time,
+    }),
+  }).catch((e) => console.warn("[demandes] notify email failed:", e));
 
   // On retourne un stub puisqu'on n'a pas l'id/created_at retournés
   return {
@@ -144,6 +168,7 @@ export const SERVICE_LABELS: Record<string, string> = {
   naturalisation: "Naturalisation française",
   "regroupement-familial": "Regroupement familial",
   regularisation: "Régularisation administrative",
+  logement: "Aide au logement",
   cv: "CV & Lettre de motivation",
   autre: "Autre démarche",
 };

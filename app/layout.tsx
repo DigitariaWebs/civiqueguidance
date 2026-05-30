@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import SiteBackground from "./components/SiteBackground";
-
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-});
+import CookieBanner from "./components/CookieBanner";
 
 export const metadata: Metadata = {
   title: "DémarchesCivique | Accompagnement Administratif d'Excellence",
@@ -21,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className={`${jakarta.variable} antialiased`}>
+    <html lang="fr" className="antialiased">
       <head>
         <link
           rel="stylesheet"
@@ -31,6 +25,7 @@ export default function RootLayout({
       <body className="min-h-screen selection:bg-french-blue selection:text-white">
         <SiteBackground />
         {children}
+        <CookieBanner />
       </body>
     </html>
   );

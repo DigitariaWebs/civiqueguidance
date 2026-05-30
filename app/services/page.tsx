@@ -1,7 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import BrushUnderline from "@/app/components/BrushUnderline";
+
+const BLUR_PLACEHOLDER =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxMiI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMDAwMDUzIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwMDkxIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjEyIiBmaWxsPSJ1cmwoI2cpIi8+PC9zdmc+";
 
 export const metadata = {
   title: "Nos Services | DémarchesCivique",
@@ -65,6 +69,13 @@ const allServices: ServiceListItem[] = [
       "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80",
   },
   {
+    slug: "logement",
+    icon: "home",
+    title: "Aide au logement",
+    desc: "Accompagnement pour trouver un logement en France. Constitution du dossier de location, démarches CAF (APL), et accès au logement social (DALO, SYPLO).",
+    bgImage: "/logement.png",
+  },
+  {
     slug: null,
     icon: "description",
     title: "CV & Lettre de motivation",
@@ -119,13 +130,18 @@ export default function ServicesIndexPage() {
                   href={href}
                   className="relative bg-ink-black border border-ink-black/8 transition-all duration-500 group cursor-pointer rounded-2xl p-8 flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-1 min-h-90"
                 >
-                  {/* Image de fond — même traitement que la home */}
-                  <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-2xl">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                  {/* Image de fond — next/image avec placeholder flouté */}
+                  <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-2xl bg-french-blue/20">
+                    <Image
                       src={s.bgImage}
                       alt={s.title}
-                      className="w-full h-full object-cover opacity-95 group-hover:scale-105 transition-transform duration-700 ease-out"
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      placeholder="blur"
+                      blurDataURL={BLUR_PLACEHOLDER}
+                      quality={85}
+                      priority={index < 3}
+                      className="object-cover opacity-95 group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-ink-black/90 via-ink-black/40 to-transparent" />
                   </div>

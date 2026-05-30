@@ -11,6 +11,7 @@ const servicesOptions = [
   { value: "naturalisation", label: "Naturalisation française" },
   { value: "regroupement-familial", label: "Regroupement familial" },
   { value: "regularisation", label: "Régularisation administrative" },
+  { value: "logement", label: "Aide au logement" },
   { value: "cv", label: "CV & Lettre de motivation" },
   { value: "autre", label: "Autre démarche" },
 ];

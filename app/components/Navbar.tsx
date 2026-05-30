@@ -9,6 +9,7 @@ const links = [
   { href: "/#app", label: "App" },
   { href: "/#expertise", label: "Expertise" },
   { href: "/a-propos", label: "À propos" },
+  { href: "/compte", label: "Mon compte" },
 ];
 
 export default function Navbar() {

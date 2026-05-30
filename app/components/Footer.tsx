@@ -19,6 +19,7 @@ const columns = [
     title: "À propos",
     links: [
       { label: "Contact", href: "/demande" },
+      { label: "Mon compte", href: "/compte" },
       { label: "FAQ", href: "#" },
     ],
   },
@@ -26,8 +27,8 @@ const columns = [
     title: "Légal",
     links: [
       { label: "Mentions légales", href: "#" },
-      { label: "Confidentialité", href: "#" },
-      { label: "Conditions d'utilisation", href: "#" },
+      { label: "Confidentialité", href: "/conditions-utilisation" },
+      { label: "Conditions d'utilisation", href: "/conditions-utilisation" },
     ],
   },
 ];

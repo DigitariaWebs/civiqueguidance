@@ -34,15 +34,30 @@ export async function middleware(request: NextRequest) {
       data: { user },
     } = await supabase.auth.getUser();
 
-    // Protège /dashboard : si pas connecté → redirige vers /admin/login
-    if (request.nextUrl.pathname.startsWith("/dashboard") && !user) {
+    const path = request.nextUrl.pathname;
+
+    // Protège /dashboard (admin) : si pas connecté → redirige vers /admin/login
+    if (path.startsWith("/dashboard") && !user) {
       const redirect = request.nextUrl.clone();
       redirect.pathname = "/admin/login";
       return NextResponse.redirect(redirect);
     }
 
+    // Protège /compte (client) : si pas connecté → /compte/connexion
+    // (sauf les pages connexion + inscription elles-mêmes)
+    if (
+      path.startsWith("/compte") &&
+      !user &&
+      !path.startsWith("/compte/connexion") &&
+      !path.startsWith("/compte/inscription")
+    ) {
+      const redirect = request.nextUrl.clone();
+      redirect.pathname = "/compte/connexion";
+      return NextResponse.redirect(redirect);
+    }
+
     // Déjà connecté + sur /admin/login → /dashboard
-    if (request.nextUrl.pathname === "/admin/login" && user) {
+    if (path === "/admin/login" && user) {
       const redirect = request.nextUrl.clone();
       redirect.pathname = "/dashboard";
       return NextResponse.redirect(redirect);

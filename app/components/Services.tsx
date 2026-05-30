@@ -1,8 +1,14 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import BrushUnderline from "./BrushUnderline";
+
+// Tiny LQIP (Low Quality Image Placeholder) — un dégradé bleu-marine flouté
+// affiché instantanément pendant que la vraie image charge.
+const BLUR_PLACEHOLDER =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxMiI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMDAwMDUzIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDAwMDkxIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjE2IiBoZWlnaHQ9IjEyIiBmaWxsPSJ1cmwoI2cpIi8+PC9zdmc+";
 
 const services = [
   {
@@ -43,7 +49,7 @@ const services = [
     title: "Regroupement familial",
     desc: "Faire venir votre famille en France. Dossier OFII, conditions de ressources.",
     gridClass: "md:col-span-1 lg:col-span-6",
-    bgImage: "./regroupement.png",
+    bgImage: "/regroupement.png",
   },
   {
     slug: "regularisation",
@@ -52,6 +58,14 @@ const services = [
     desc: "Régulariser votre situation administrative en France.",
     gridClass: "md:col-span-1 lg:col-span-6",
     bgImage: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    slug: "logement",
+    icon: "home",
+    title: "Aide au logement",
+    desc: "Trouver un logement en France. Dossier de location, APL, démarches CAF.",
+    gridClass: "md:col-span-2 lg:col-span-12",
+    bgImage: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=80",
   },
 ];
 
@@ -97,12 +111,18 @@ export default function Services() {
               className={`relative bg-ink-black border border-ink-black/[0.08] transition-all duration-500 group cursor-pointer rounded-2xl p-8 flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-1 ${s.gridClass}`}
             >
               
-              {/* IMAGE EN BACKGROUND : En couleur, pas d'overlay de couleur crado, juste un zoom propre */}
-              <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-2xl">
-                <img
+              {/* IMAGE EN BACKGROUND : next/image avec placeholder flouté + priority sur les 2 premières */}
+              <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-2xl bg-french-blue/20">
+                <Image
                   src={s.bgImage}
                   alt={s.title}
-                  className="w-full h-full object-cover opacity-95 group-hover:scale-105 transition-transform duration-700 ease-out"
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  placeholder="blur"
+                  blurDataURL={BLUR_PLACEHOLDER}
+                  quality={85}
+                  priority={index < 2}
+                  className="object-cover opacity-95 group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
                 {/* Dégradé doux : noir dense en bas pour lisibilité du texte, transparent en haut */}
                 <div className="absolute inset-0 bg-linear-to-t from-ink-black/90 via-ink-black/40 to-transparent" />
