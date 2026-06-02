@@ -9,6 +9,11 @@ import {
   type Demande,
   type Statut,
 } from "@/lib/demandes";
+import {
+  loadAllDocuments,
+  getAdminDocumentUrl,
+  type AdminDocument,
+} from "@/lib/admin-data";
 
 const tabs = [
   { id: "rendez-vous", label: "Rendez-vous", icon: "event" },
@@ -30,19 +35,24 @@ export default function DashboardPage() {
 
 function DashboardContent() {
   const [demandes, setDemandes] = useState<Demande[]>([]);
+  const [documents, setDocuments] = useState<AdminDocument[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<TabId>("rendez-vous");
 
   useEffect(() => {
     (async () => {
       setLoading(true);
-      setDemandes(await loadDemandes());
+      const [d, docs] = await Promise.all([loadDemandes(), loadAllDocuments()]);
+      setDemandes(d);
+      setDocuments(docs);
       setLoading(false);
     })();
   }, []);
 
   async function refresh() {
-    setDemandes(await loadDemandes());
+    const [d, docs] = await Promise.all([loadDemandes(), loadAllDocuments()]);
+    setDemandes(d);
+    setDocuments(docs);
   }
 
   async function onChangeStatut(id: string, statut: Statut) {
@@ -66,11 +76,11 @@ function DashboardContent() {
     () => ({
       "rendez-vous": demandes.length,
       prestations: new Set(demandes.map((d) => d.service)).size,
-      documents: 0,
+      documents: documents.length,
       messages: demandes.filter((d) => d.message?.trim()).length,
       paiements: 0,
     }),
-    [demandes]
+    [demandes, documents]
   );
 
   return (
@@ -157,13 +167,7 @@ function DashboardContent() {
       {activeTab === "prestations" && (
         <PrestationsPanel demandes={demandes} />
       )}
-      {activeTab === "documents" && (
-        <EmptyState
-          icon="folder_open"
-          title="Aucun document"
-          desc="Les documents partagés par les clients apparaîtront ici."
-        />
-      )}
+      {activeTab === "documents" && <DocumentsPanel documents={documents} />}
       {activeTab === "messages" && <MessagesPanel demandes={demandes} />}
       {activeTab === "paiements" && (
         <EmptyState
@@ -333,6 +337,116 @@ function PrestationsPanel({ demandes }: { demandes: Demande[] }) {
       ))}
     </div>
   );
+}
+
+function DocumentsPanel({ documents }: { documents: AdminDocument[] }) {
+  async function onDownload(doc: AdminDocument) {
+    const url = await getAdminDocumentUrl(doc.storagePath);
+    if (url) window.open(url, "_blank");
+  }
+
+  if (documents.length === 0) {
+    return (
+      <EmptyState
+        icon="folder_open"
+        title="Aucun document"
+        desc="Les documents téléversés par les clients depuis leur espace personnel apparaîtront ici."
+      />
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-2xl border border-ink-black/8 overflow-hidden shadow-xs">
+      <div className="overflow-x-auto">
+        <table className="w-full text-left">
+          <thead className="bg-[#fafafc] border-b border-ink-black/6">
+            <tr className="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">
+              <th className="px-5 py-4">Client</th>
+              <th className="px-5 py-4">Fichier</th>
+              <th className="px-5 py-4">Type</th>
+              <th className="px-5 py-4">Taille</th>
+              <th className="px-5 py-4">Reçu le</th>
+              <th className="px-5 py-4 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {documents.map((d) => (
+              <tr
+                key={d.id}
+                className="border-b border-ink-black/4 last:border-b-0 hover:bg-[#fafafc] transition-colors"
+              >
+                <td className="px-5 py-4 whitespace-nowrap">
+                  <p className="text-[14px] font-semibold text-ink-black">
+                    {d.clientName}
+                  </p>
+                  {d.clientEmail && (
+                    <p className="text-[12px] text-on-surface-variant break-all">
+                      {d.clientEmail}
+                    </p>
+                  )}
+                </td>
+                <td className="px-5 py-4">
+                  <div className="flex items-center gap-3">
+                    <div className="shrink-0 w-9 h-9 rounded-lg bg-french-blue/10 flex items-center justify-center">
+                      <span className="material-symbols-outlined text-french-blue text-[18px]">
+                        {fileIcon(d.mimeType)}
+                      </span>
+                    </div>
+                    <span className="text-[14px] font-semibold text-ink-black break-all">
+                      {d.filename}
+                    </span>
+                  </div>
+                </td>
+                <td className="px-5 py-4 text-[12px] text-on-surface-variant uppercase tracking-wider">
+                  {fileExtension(d.filename)}
+                </td>
+                <td className="px-5 py-4 text-[13px] text-on-surface-variant whitespace-nowrap">
+                  {formatBytes(d.sizeBytes)}
+                </td>
+                <td className="px-5 py-4 text-[13px] text-ink-black whitespace-nowrap">
+                  {new Date(d.createdAt).toLocaleDateString("fr-FR", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </td>
+                <td className="px-5 py-4 text-right whitespace-nowrap">
+                  <button
+                    type="button"
+                    onClick={() => onDownload(d)}
+                    className="inline-flex items-center gap-2 bg-french-blue/5 hover:bg-french-blue hover:text-white text-french-blue border border-french-blue/15 hover:border-french-blue px-3 py-2 rounded-lg text-[12px] font-bold transition-all"
+                  >
+                    <span className="material-symbols-outlined text-[16px]">
+                      download
+                    </span>
+                    Télécharger
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function fileIcon(mime: string): string {
+  if (mime.startsWith("image/")) return "image";
+  if (mime === "application/pdf") return "picture_as_pdf";
+  if (mime.includes("word") || mime.includes("document")) return "description";
+  return "draft";
+}
+
+function fileExtension(filename: string): string {
+  const m = filename.match(/\.([a-zA-Z0-9]+)$/);
+  return m ? m[1] : "—";
+}
+
+function formatBytes(b: number): string {
+  if (b < 1024) return `${b} o`;
+  if (b < 1024 * 1024) return `${(b / 1024).toFixed(1)} Ko`;
+  return `${(b / 1024 / 1024).toFixed(1)} Mo`;
 }
 
 function MessagesPanel({ demandes }: { demandes: Demande[] }) {
