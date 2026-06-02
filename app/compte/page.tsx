@@ -7,11 +7,13 @@ import SignaturePad from "@/app/components/SignaturePad";
 import {
   loadMyDemandes,
   loadMyDocuments,
+  loadMySignatures,
   uploadDocument,
   deleteDocument,
   getDocumentDownloadUrl,
   saveSignature,
   type ClientDocument,
+  type ClientSignature,
 } from "@/lib/client-data";
 import type { Demande } from "@/lib/demandes";
 
@@ -26,6 +28,7 @@ export default function ClientHomePage() {
 function ClientContent({ userEmail }: { userEmail: string }) {
   const [demandes, setDemandes] = useState<Demande[]>([]);
   const [documents, setDocuments] = useState<ClientDocument[]>([]);
+  const [signatures, setSignatures] = useState<ClientSignature[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -33,17 +36,27 @@ function ClientContent({ userEmail }: { userEmail: string }) {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const [d, docs] = await Promise.all([loadMyDemandes(), loadMyDocuments()]);
+      const [d, docs, sigs] = await Promise.all([
+        loadMyDemandes(),
+        loadMyDocuments(),
+        loadMySignatures(),
+      ]);
       setDemandes(d);
       setDocuments(docs);
+      setSignatures(sigs);
       setLoading(false);
     })();
   }, []);
 
   async function refresh() {
-    const [d, docs] = await Promise.all([loadMyDemandes(), loadMyDocuments()]);
+    const [d, docs, sigs] = await Promise.all([
+      loadMyDemandes(),
+      loadMyDocuments(),
+      loadMySignatures(),
+    ]);
     setDemandes(d);
     setDocuments(docs);
+    setSignatures(sigs);
   }
 
   async function onUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -73,7 +86,8 @@ function ClientContent({ userEmail }: { userEmail: string }) {
   }
 
   async function onSaveSignature(dataUrl: string) {
-    await saveSignature(dataUrl, "Mandat d'accompagnement");
+    const ok = await saveSignature(dataUrl, "Mandat d'accompagnement");
+    if (ok) await refresh();
   }
 
   return (
@@ -243,9 +257,63 @@ function ClientContent({ userEmail }: { userEmail: string }) {
         <h2 className="text-[20px] font-bold text-ink-black mb-4">
           Signature électronique
         </h2>
+
+        {/* Signatures déjà enregistrées */}
+        {signatures.length > 0 && (
+          <div className="mb-5 space-y-3">
+            <p className="text-[12px] font-bold uppercase tracking-wider text-on-surface-variant">
+              Signatures enregistrées ({signatures.length})
+            </p>
+            {signatures.map((sig) => (
+              <article
+                key={sig.id}
+                className="bg-white border border-ink-black/8 rounded-2xl p-4 flex items-center gap-5"
+              >
+                <div className="shrink-0 w-32 h-20 bg-white border border-ink-black/8 rounded-lg overflow-hidden flex items-center justify-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={sig.signatureData}
+                    alt="Signature"
+                    className="max-w-full max-h-full object-contain"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[14px] font-bold text-ink-black mb-1">
+                    {sig.documentLabel || "Signature"}
+                  </p>
+                  <p className="text-[12px] text-on-surface-variant flex items-center gap-1.5">
+                    <span
+                      className="material-symbols-outlined text-[14px]"
+                      style={{ fontVariationSettings: "'wght' 400" }}
+                    >
+                      verified
+                    </span>
+                    Signé le{" "}
+                    {new Date(sig.createdAt).toLocaleDateString("fr-FR", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}{" "}
+                    à{" "}
+                    {new Date(sig.createdAt).toLocaleTimeString("fr-FR", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+
+        {/* Pad pour ajouter une nouvelle signature */}
         <SignaturePad
           onSave={onSaveSignature}
-          documentLabel="Mandat d'accompagnement administratif"
+          documentLabel={
+            signatures.length > 0
+              ? "Nouvelle signature"
+              : "Mandat d'accompagnement administratif"
+          }
         />
       </section>
     </div>

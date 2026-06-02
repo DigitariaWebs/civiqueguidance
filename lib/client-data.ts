@@ -186,6 +186,42 @@ export async function getDocumentDownloadUrl(
   }
 }
 
+export type ClientSignature = {
+  id: string;
+  createdAt: string;
+  signatureData: string; // data:image/png;base64,...
+  documentLabel: string;
+};
+
+export async function loadMySignatures(): Promise<ClientSignature[]> {
+  if (!isSupabaseConfigured()) return [];
+  try {
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return [];
+    const { data, error } = await supabase
+      .from("signatures")
+      .select("*")
+      .eq("client_id", user.id)
+      .order("created_at", { ascending: false });
+    if (error) {
+      console.error("[client-data] loadMySignatures:", error.message);
+      return [];
+    }
+    return (data ?? []).map((s) => ({
+      id: s.id,
+      createdAt: s.created_at,
+      signatureData: s.signature_data,
+      documentLabel: s.document_label ?? "",
+    }));
+  } catch (e) {
+    console.error("[client-data] loadMySignatures exception:", e);
+    return [];
+  }
+}
+
 export async function saveSignature(
   signatureDataUrl: string,
   documentLabel: string
