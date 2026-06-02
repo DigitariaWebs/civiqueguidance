@@ -133,9 +133,16 @@
 
 @layer base {
   html {
-    /* Dezoom global du site (~90%). Supporté par Chrome/Edge/Safari/Firefox 126+ */
-    zoom: 0.9;
     font-family: "Marianne", system-ui, sans-serif;
+    /* Dézoom uniquement sur desktop (>= md), retiré sur mobile pour éviter
+       les bugs Safari iOS qui ne gère pas bien `zoom` non-standard */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  @media (min-width: 768px) {
+    html {
+      zoom: 0.9;
+    }
   }
   body {
     font-family: "Marianne", system-ui, sans-serif;
