@@ -135,9 +135,10 @@
   html {
     /* Dezoom global du site (~90%). Supporté par Chrome/Edge/Safari/Firefox 126+ */
     zoom: 0.9;
+    font-family: "Marianne", system-ui, sans-serif;
   }
   body {
-    font-family: "Marianne", "Plus Jakarta Sans", system-ui, sans-serif;
+    font-family: "Marianne", system-ui, sans-serif;
     color: var(--color-on-surface);
     overflow-x: hidden;
     background-color: var(--color-surface-container-lowest);

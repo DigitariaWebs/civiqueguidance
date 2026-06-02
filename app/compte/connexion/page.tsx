@@ -21,8 +21,11 @@ export default function ClientLoginPage() {
       String(fd.get("password") ?? "")
     );
     if (result.ok) {
-      router.push("/compte");
+      // Refresh d'abord pour que le middleware côté serveur lise les nouveaux cookies,
+      // puis push. L'ordre évite la boucle "middleware redirige vers /compte/connexion
+      // → spinner infini".
       router.refresh();
+      router.push("/compte");
     } else {
       setError(translateAuthError(result.error));
       setBusy(false);

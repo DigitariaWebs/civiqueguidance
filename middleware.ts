@@ -62,6 +62,16 @@ export async function middleware(request: NextRequest) {
       redirect.pathname = "/dashboard";
       return NextResponse.redirect(redirect);
     }
+
+    // Déjà connecté + sur /compte/connexion ou /compte/inscription → /compte
+    if (
+      (path === "/compte/connexion" || path === "/compte/inscription") &&
+      user
+    ) {
+      const redirect = request.nextUrl.clone();
+      redirect.pathname = "/compte";
+      return NextResponse.redirect(redirect);
+    }
   } catch (err) {
     // Sécurité : si Supabase plante (clé invalide, réseau, etc.) on ne casse pas le site
     console.error("[middleware] Supabase auth check failed:", err);

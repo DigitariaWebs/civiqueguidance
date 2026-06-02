@@ -64,8 +64,8 @@ const services = [
     icon: "home",
     title: "Aide au logement",
     desc: "Trouver un logement en France. Dossier de location, APL, démarches CAF.",
-    gridClass: "md:col-span-2 lg:col-span-12",
-    bgImage: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=80",
+    gridClass: "md:col-span-1 lg:col-span-6 lg:col-start-4",
+    bgImage: "/logement.png",
   },
 ];
 
@@ -95,9 +95,9 @@ export default function Services() {
             </p>
           </div>
           
-          <div className="h-[1px] grow mx-8 bg-ink-black/5 hidden md:block" />
+          <div className="h-px grow mx-8 bg-ink-black/5 hidden md:block" />
           
-          <span className="text-[11px] font-mono font-bold text-ink-black/40 bg-white/80 px-3 py-1.5 rounded-lg border border-ink-black/[0.04]">
+          <span className="text-[11px] font-mono font-bold text-ink-black/40 bg-white/80 px-3 py-1.5 rounded-lg border border-ink-black/4">
             SERVICES COMPLETS
           </span>
         </div>
@@ -108,7 +108,7 @@ export default function Services() {
             <Link
               href={`/services/${s.slug}`}
               key={s.title}
-              className={`relative bg-ink-black border border-ink-black/[0.08] transition-all duration-500 group cursor-pointer rounded-2xl p-8 flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-1 ${s.gridClass}`}
+              className={`relative bg-ink-black border border-ink-black/8 transition-all duration-500 group cursor-pointer rounded-2xl p-8 flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-1 ${s.gridClass}`}
             >
               
               {/* IMAGE EN BACKGROUND : next/image avec placeholder flouté + priority sur les 2 premières */}
@@ -160,7 +160,7 @@ export default function Services() {
                 {/* Pied de la carte */}
                 <div className="mt-12 flex items-center justify-between pt-4 border-t border-white/10">
                   <div className="flex items-center text-white/80 group-hover:text-white text-[11px] font-extrabold tracking-widest uppercase gap-1 transition-colors">
-                    <span className="relative pb-0.5 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-white group-hover:after:w-full after:transition-all after:duration-300">
+                    <span className="relative pb-0.5 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-white group-hover:after:w-full after:transition-all after:duration-300">
                       Découvrir le pôle
                     </span>
                     <span className="material-symbols-outlined text-[14px] transition-transform duration-300 group-hover:translate-x-1" style={{ fontVariationSettings: "'wght' 300" }}>

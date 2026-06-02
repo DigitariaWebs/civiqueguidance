@@ -14,7 +14,7 @@ export default function Hero() {
               Accompagnement en ligne
             </span>
 
-            <h1 className="text-[28px] leading-9 sm:text-[32px] sm:leading-10 md:text-[40px] md:leading-11 lg:text-[44px] lg:leading-tight font-bold tracking-tight text-ink-black mb-6 sm:mb-8">
+            <h1 className="text-[28px] leading-9 sm:text-[32px] sm:leading-10 md:text-[40px] md:leading-11 lg:text-[44px] lg:leading-tight font-black tracking-tight text-ink-black mb-6 sm:mb-8">
               Accompagnement en ligne pour vos{" "}
               <span className="relative inline-block text-french-blue">
                 démarches administratives
@@ -55,7 +55,7 @@ export default function Hero() {
           <div className="lg:col-span-5 relative mx-auto w-full max-w-md lg:max-w-none">
             <div className="relative w-full aspect-square">
               {/* Image principale (haut-droite) */}
-              <div className="absolute top-0 right-0 w-[82%] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-[6px] border-white">
+              <div className="absolute top-0 right-0 w-[82%] aspect-4/3 rounded-2xl overflow-hidden shadow-2xl border-[6px] border-white">
                 <Image
                   src="/hero.png"
                   alt="Conseillère expliquant un dossier à un client"
@@ -67,7 +67,7 @@ export default function Hero() {
               </div>
 
               {/* Image secondaire (bas-gauche, en chevauchement) */}
-              <div className="absolute bottom-0 left-0 w-[60%] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-[6px] border-white z-10 rotate-[-2deg]">
+              <div className="absolute bottom-0 left-0 w-[60%] aspect-4/3 rounded-2xl overflow-hidden shadow-2xl border-[6px] border-white z-10 -rotate-2">
                 <Image
                   src="/hero2.png"
                   alt="Poignée de main entre conseiller et client"

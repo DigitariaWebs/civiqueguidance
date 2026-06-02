@@ -34,25 +34,36 @@ export default function ClientSignupPage() {
   if (sent) {
     return (
       <main className="min-h-screen flex items-center justify-center p-6">
-        <div className="w-full max-w-md text-center bg-white border border-ink-black/8 rounded-2xl p-10 shadow-xl">
-          <div className="w-16 h-16 rounded-full bg-french-blue/10 flex items-center justify-center mx-auto mb-5">
-            <span className="material-symbols-outlined text-french-blue text-[32px]">
+        <div className="w-full max-w-md text-center bg-white border border-ink-black/8 rounded-2xl p-8 sm:p-10 shadow-xl">
+          <div className="w-20 h-20 rounded-full bg-linear-to-br from-french-blue/15 to-french-blue/5 flex items-center justify-center mx-auto mb-6">
+            <span className="material-symbols-outlined text-french-blue text-[40px]">
               mark_email_read
             </span>
           </div>
-          <h1 className="text-2xl font-bold text-ink-black mb-3">
+          <h1 className="text-2xl sm:text-3xl font-black text-ink-black mb-3 tracking-tight">
             Vérifie ta boîte de réception
           </h1>
-          <p className="text-[15px] text-on-surface-variant mb-6">
+          <p className="text-[15px] text-on-surface-variant mb-8 leading-relaxed">
             On t&apos;a envoyé un lien de confirmation. Clique dessus pour
-            activer ton compte, puis reviens te connecter.
+            activer ton compte, puis reviens te connecter ici.
           </p>
+
           <Link
             href="/compte/connexion"
-            className="inline-block bg-french-blue text-white px-6 py-3 rounded-lg text-[14px] font-bold"
+            className="w-full inline-flex items-center justify-center gap-2 bg-french-blue hover:bg-[#000066] text-white px-6 py-4 rounded-xl text-[15px] font-bold shadow-md transition-all"
           >
-            Aller à la connexion
+            Se connecter
+            <span
+              className="material-symbols-outlined text-[20px]"
+              style={{ fontVariationSettings: "'wght' 400" }}
+            >
+              arrow_right_alt
+            </span>
           </Link>
+
+          <p className="text-[12px] text-on-surface-variant/70 mt-6">
+            Pas d&apos;email ? Vérifie dans les courriers indésirables.
+          </p>
         </div>
       </main>
     );

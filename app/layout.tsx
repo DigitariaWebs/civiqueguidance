@@ -17,6 +17,28 @@ export default function RootLayout({
   return (
     <html lang="fr" className="antialiased">
       <head>
+        {/* Préchargement explicite des poids Marianne critiques (Regular + Bold) */}
+        <link
+          rel="preload"
+          href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Bold.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.13.0/dist/fonts/Marianne-Medium.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
